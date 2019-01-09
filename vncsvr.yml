@@ -4,9 +4,21 @@
   # become: true
 
   tasks:
+    - name: Set login banner
+      template:
+        src: motd.txt
+        dest: /etc/motd
+
     - name: Update apt cache
       apt: update_cache=yes
 
+    - name: Upgrade all packages
+      apt:
+        upgrade: true
+        state: latest
+
     - name: Install packages
-      apt: name={{ item }} state=latest
+      apt:
+        name={{ item }}
+        state=latest
       with_items: "{{ vncsvr_packages }}"

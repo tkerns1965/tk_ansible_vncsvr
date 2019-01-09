@@ -14,7 +14,7 @@
 
     - name: Upgrade all packages
       apt:
-        upgrade: true
+        name: "*"
         state: latest
 
     - name: Install packages

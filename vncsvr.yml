@@ -9,6 +9,7 @@
         path: /etc/cloud/cloud.cfg
         regexp: '(^preserve_hostname: )false$'
         line: '\1true'
+        backrefs: yes
 
     - name: "Set hostname to {{ vncsvr_hostname }}"
       hostname:
@@ -19,6 +20,7 @@
         path: /etc/default/motd-news
         regexp: '(^ENABLED=)1$'
         line: '\10'
+        backrefs: yes
 
     - name: Set login banner
       template:

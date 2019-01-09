@@ -19,7 +19,7 @@
       lineinfile:
         path: /etc/default/motd-news
         regexp: '(^ENABLED=)1$'
-        line: '\10'
+        line: '${1}0'
         backrefs: yes
 
     - name: Set login banner

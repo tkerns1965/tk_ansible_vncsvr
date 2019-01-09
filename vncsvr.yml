@@ -35,3 +35,7 @@
         name="{{ item }}"
         state=latest
       with_items: "{{ vncsvr_packages }}"
+
+    - name: Reboot system if required
+      command: shutdown -r now 'Rebooting to complete system upgrade'
+        removes=/var/run/reboot-required

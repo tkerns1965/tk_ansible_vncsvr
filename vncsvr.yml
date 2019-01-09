@@ -5,14 +5,20 @@
 
   tasks:
     - name: Allow change of hostname
-      command: "/bin/sed -i 's/^preserve_hostname: false$/# preserve_hostname: false\npreserve_hostname: true/' /etc/cloud/cloud.cfg"
+      lineinfile:
+        path: /etc/cloud/cloud.cfg
+        regexp: '(^preserve_hostname: )false$'
+        line: '\1true'
 
     - name: "Set hostname to {{ vncsvr_hostname }}"
       hostname:
         name: "{{ vncsvr_hostname }}"
 
     - name: Turn off MOTD news service
-      command: "/bin/sed -i 's/^ENABLED=1$/# ENABLED=1\nENABLED=0/' /etc/default/motd-news"
+      lineinfile:
+        path: /etc/default/motd-news
+        regexp: '(^ENABLED=)1$'
+        line: '\10'
 
     - name: Set login banner
       template:

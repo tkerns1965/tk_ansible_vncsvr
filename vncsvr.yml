@@ -10,10 +10,12 @@
         dest: /etc/motd
 
     - name: Update apt cache
-      apt: update_cache=yes
+      apt:
+        update_cache: yes
 
     - name: Upgrade all packages
       apt:
+        force_apt_get: yes
         name: "*"
         state: latest
 

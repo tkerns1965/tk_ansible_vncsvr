@@ -3,16 +3,10 @@
 
   # become: true
 
-  vars:
-    packages:
-      - firefox
-      - tightvncserver
-      - xfce4
-
   tasks:
     - name: Update apt cache
       apt: update_cache=yes
 
     - name: Install packages
       apt: name={{ item }} state=latest
-      with_items: "{{ packages }}"
+      with_items: "{{ vncsvr_packages }}"

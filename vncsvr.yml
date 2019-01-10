@@ -47,13 +47,14 @@
             state=latest
           with_items: "{{ vncsvr_packages }}"
 
-        - name: Reboot system if required
-          command: shutdown -r now 'Rebooting to complete system upgrade'
-            removes=/var/run/reboot-required
-
     - name: Execute block as normal user
       block:
         - name: Copy simple file
           template:
             src: simple.txt
             dest: ~/
+
+    - name: Reboot system if required
+      become: true
+      command: shutdown -r now 'Rebooting to complete system upgrade'
+        removes=/var/run/reboot-required

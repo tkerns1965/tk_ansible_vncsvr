@@ -47,8 +47,11 @@
           with_items: "{{ vncsvr_packages }}"
 
         - name: Install pexpect
-          pip:
-            name: pexpect
+        #   pip:
+        #     name: pexpect
+          apt:
+            name=python-pexpect
+            state=latest
 
     - name: Execute block as normal user
       block:

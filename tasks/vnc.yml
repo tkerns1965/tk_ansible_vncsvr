@@ -1,11 +1,6 @@
 ---
 - name: Execute block as normal user
   block:
-    - name: Copy simple file
-      template:
-        src: simple.txt
-        dest: ~/
-
     - name: Set vnc server password
       expect:
         command: vncserver :0
@@ -18,3 +13,24 @@
 
     - name: Stop vnc server process
       command: vncserver -kill :0
+
+    - name: Backup existing xstartup file
+      command: mv ~/.vnc/xstartup ~/.vnc/xstartup.bak
+
+    - name: Insert new xstartup file
+      template:
+        src: .vnc/xstartup
+        dest:  ~/.vnc/
+
+    - name: Make new xstartup file executable
+      command: chmod +x ~/.vnc/xstartup
+
+# - name: Execute block as sudo
+#   become: true
+#   block:
+#     - name: Allow change of hostname
+#       lineinfile:
+#         path: /etc/cloud/cloud.cfg
+#         regexp: '^(?P<a>preserve_hostname: )false$'
+#         line: '\g<a>true'
+#         backrefs: yes

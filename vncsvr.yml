@@ -1,10 +1,9 @@
 ---
 - hosts: all
 
-  become: true
-
   tasks:
     - name: Execute block as sudo
+      become: true
       block:
         - name: Allow change of hostname
           lineinfile:

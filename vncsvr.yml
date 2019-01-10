@@ -3,7 +3,7 @@
 
   tasks:
     - name: Execute block as sudo
-      become: yes
+      become: true
       block:
         - name: Allow change of hostname
           lineinfile:

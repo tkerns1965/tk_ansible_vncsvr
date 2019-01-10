@@ -41,8 +41,3 @@
         name="{{ item }}"
         state=latest
       with_items: "{{ vncsvr_packages }}"
-
-    - name: Install pexpect
-      apt:
-        name=python-pexpect
-        state=latest

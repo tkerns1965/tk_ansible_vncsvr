@@ -46,6 +46,10 @@
             state=latest
           with_items: "{{ vncsvr_packages }}"
 
+        - name: Install pexpect
+          pip:
+            name: pexpect
+
     - name: Execute block as normal user
       block:
         - name: Copy simple file

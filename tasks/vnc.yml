@@ -19,8 +19,8 @@
 
     - name: Insert new xstartup file
       template:
-        src: ./vnc/xstartup
-        dest:  ~/.vnc/
+        src: ./vnc/xstartup.template
+        dest:  ~/.vnc/xstartup
 
     - name: Make new xstartup file executable
       command: chmod +x ~/.vnc/xstartup

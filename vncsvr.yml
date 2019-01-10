@@ -47,8 +47,6 @@
           with_items: "{{ vncsvr_packages }}"
 
         - name: Install pexpect
-        #   pip:
-        #     name: pexpect
           apt:
             name=python-pexpect
             state=latest
@@ -60,15 +58,25 @@
             src: simple.txt
             dest: ~/
 
-        - name: Set vnc password
+        - name: Set vnc server password
           expect:
-            command: vncserver
+            command: vncserver :0
             responses:
               (?i)password: "{{ vnc_password }}"
               (?i)verify: "{{ vnc_password }}"
               (?i)would you like to enter a view-only password (y/n)?: "n"
             creates: ~/.vnc/xstartup
-          # no_log: true
+          no_log: true
+
+        - name: Stop vnc server process
+          command: vncserver -kill :0
+
+# mv ~/.vnc/xstartup ~/.vnc/xstartup.bak
+# nano ~/.vnc/xstartup
+# #!/bin/bash
+# xrdb $HOME/.Xresources
+# startxfce4 &
+# sudo chmod +x ~/.vnc/xstartup
 
     - name: Reboot system if required
       become: true

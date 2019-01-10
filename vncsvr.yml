@@ -3,73 +3,11 @@
   hosts: local
 
   tasks:
-    - name: Execute block as sudo
-      become: true
-      block:
-        - name: Allow change of hostname
-          lineinfile:
-            path: /etc/cloud/cloud.cfg
-            regexp: '^(?P<a>preserve_hostname: )false$'
-            line: '\g<a>true'
-            backrefs: yes
+    - import_tasks: tasks/general.yml
+      tags: general
 
-        - name: "Set hostname to {{ vncsvr_hostname }}"
-          hostname:
-            name: "{{ vncsvr_hostname }}"
-
-        - name: Turn off MOTD news service
-          lineinfile:
-            path: /etc/default/motd-news
-            regexp: '^(?P<a>ENABLED=)1$'
-            line: '\g<a>0'
-            backrefs: yes
-
-        - name: Set login banner
-          template:
-            src: motd.txt
-            dest: /etc/motd
-
-        - name: Update apt cache
-          apt:
-            force_apt_get: yes
-            update_cache: yes
-
-        - name: Upgrade all packages
-          apt:
-            force_apt_get: yes
-            name: "*"
-            state: latest
-
-        - name: Install packages
-          apt:
-            name="{{ item }}"
-            state=latest
-          with_items: "{{ vncsvr_packages }}"
-
-        - name: Install pexpect
-          apt:
-            name=python-pexpect
-            state=latest
-
-    - name: Execute block as normal user
-      block:
-        - name: Copy simple file
-          template:
-            src: simple.txt
-            dest: ~/
-
-        - name: Set vnc server password
-          expect:
-            command: vncserver :0
-            responses:
-              (?i)password: "{{ vnc_password }}"
-              (?i)verify: "{{ vnc_password }}"
-              (?i)would you like to enter a view-only password (y/n)?: "n"
-            creates: ~/.vnc/xstartup
-          no_log: true
-
-        - name: Stop vnc server process
-          command: vncserver -kill :0
+    - import_tasks: tasks/vnc.yml
+      tags: vnc
 
 # mv ~/.vnc/xstartup ~/.vnc/xstartup.bak
 # nano ~/.vnc/xstartup

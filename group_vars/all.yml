@@ -1,4 +1,6 @@
 ---
+ansible_ssh_user: root
+
 vncsvr_hostname: vncsvr01
 
 vncsvr_packages:

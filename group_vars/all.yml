@@ -1,5 +1,5 @@
 ---
-ansible_ssh_user: root
+# ansible_ssh_user: root
 
 vncsvr_hostname: vncsvr01
 

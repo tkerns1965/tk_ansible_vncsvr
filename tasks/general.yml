@@ -1,0 +1,48 @@
+---
+- name: Execute block as sudo
+  become: true
+  block:
+    - name: Allow change of hostname
+      lineinfile:
+        path: /etc/cloud/cloud.cfg
+        regexp: '^(?P<a>preserve_hostname: )false$'
+        line: '\g<a>true'
+        backrefs: yes
+
+    - name: "Set hostname to {{ vncsvr_hostname }}"
+      hostname:
+        name: "{{ vncsvr_hostname }}"
+
+    - name: Turn off MOTD news service
+      lineinfile:
+        path: /etc/default/motd-news
+        regexp: '^(?P<a>ENABLED=)1$'
+        line: '\g<a>0'
+        backrefs: yes
+
+    - name: Set login banner
+      template:
+        src: motd.txt
+        dest: /etc/motd
+
+    - name: Update apt cache
+      apt:
+        force_apt_get: yes
+        update_cache: yes
+
+    - name: Upgrade all packages
+      apt:
+        force_apt_get: yes
+        name: "*"
+        state: latest
+
+    - name: Install packages
+      apt:
+        name="{{ item }}"
+        state=latest
+      with_items: "{{ vncsvr_packages }}"
+
+    - name: Install pexpect
+      apt:
+        name=python-pexpect
+        state=latest

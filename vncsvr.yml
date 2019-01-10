@@ -9,13 +9,6 @@
     - import_tasks: tasks/vnc.yml
       tags: vnc
 
-# mv ~/.vnc/xstartup ~/.vnc/xstartup.bak
-# nano ~/.vnc/xstartup
-# #!/bin/bash
-# xrdb $HOME/.Xresources
-# startxfce4 &
-# sudo chmod +x ~/.vnc/xstartup
-
     - name: Reboot system if required
       become: true
       command: shutdown -r now 'Rebooting to complete system upgrade'

@@ -2,9 +2,14 @@
 - name: Execute block as sudo
   become: true
   block:
+    - name: Make xfce defaults directory
+      file:
+        path: /usr/lib/X11/app-defaults
+        state: directory
+        mode: 0755
+
     - name: Set xfce defaults
       command: "{{ item }}"
       with_items:
         - cp /etc/xdg/xfce4/panel/default.xml /etc/xdg/xfce4/xfconf/xfce-perchannel-xml/xfce4-panel.xml
-        - mkdir /usr/lib/X11/app-defaults
         - cp /etc/X11/app-defaults/XScreenSaver /usr/lib/X11/app-defaults/

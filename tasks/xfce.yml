@@ -13,3 +13,10 @@
       with_items:
         - cp /etc/xdg/xfce4/panel/default.xml /etc/xdg/xfce4/xfconf/xfce-perchannel-xml/xfce4-panel.xml
         - cp /etc/X11/app-defaults/XScreenSaver /usr/lib/X11/app-defaults/
+
+    - name: Turn off xscreensaver
+      lineinfile:
+        path: /usr/lib/X11/app-defaults/XScreenSaver
+        regexp: '^(?P<a>\*mode:.*)random$'
+        line: '\g<a>off'
+        backrefs: yes

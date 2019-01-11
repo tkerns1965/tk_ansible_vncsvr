@@ -6,4 +6,6 @@ For use on bare Ubuntu 18.04.1 Live Server
  2. sudo apt install -y ansible
  3. git clone https://github.com/tkerns1965/tk_vncsvr_ansible.git
  4. cd tk_vncsvr_ansible/
- 5. ansible-playbook -K vncsvr.yml 
+ 5. cp .vault_pass.sample .vault_pass
+ 6. nano .vault_pass
+ 7. ansible-playbook -K vncsvr.yml 

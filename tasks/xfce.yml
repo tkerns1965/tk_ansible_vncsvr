@@ -21,8 +21,19 @@
         line: '\g<a>off'
         backrefs: yes
 
-# - name: Execute block as normal user
-#   block:
+- name: Execute block as normal user
+  block:
+    - name: Make xfce config directory
+      file:
+        path: ~/.config/xfce4/xfconf/xfce-perchannel-xml
+        state: directory
+        mode: 0755
+
+    - name: Set login banner
+      copy:
+        src: ./templates/vnc/xfce4-desktop.xml.template
+        dest: ~/.config/xfce4/xfconf/xfce-perchannel-xml/xfce4-desktop.xml
+
 #     - name: Change desktop background
 #       replace:
 #         path: ~/.config/xfce4/xfconf/xfce-perchannel-xml/xfce4-desktop.xml

@@ -31,7 +31,7 @@
 
     - name: Set login banner
       copy:
-        src: ./templates/vnc/xfce4-desktop.xml.template
+        src: ./templates/xfce/xfce4-desktop.xml.template
         dest: ~/.config/xfce4/xfconf/xfce-perchannel-xml/xfce4-desktop.xml
 
 #     - name: Change desktop background

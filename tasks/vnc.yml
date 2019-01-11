@@ -18,7 +18,7 @@
       command: mv ~/.vnc/xstartup ~/.vnc/xstartup.bak
 
     - name: Insert new xstartup file
-      template:
+      copy:
         src: ./vnc/xstartup.template
         dest:  ~/.vnc/xstartup
         mode: 0755

@@ -30,3 +30,9 @@
       template:
         src: /vnc/vncserver@.service.template
         dest: /etc/systemd/system/vncserver@.service
+
+    - name: Make system aware of vnc service
+      command: systemctl daemon-reload
+
+    - name: Enable vnc service
+      command: systemctl enable vncserver@0.service

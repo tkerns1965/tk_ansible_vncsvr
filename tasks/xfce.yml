@@ -21,10 +21,10 @@
         line: '\g<a>off'
         backrefs: yes
 
-- name: Execute block as normal user
-  block:
-    - name: Change desktop background
-      replace:
-        path: ~/.config/xfce4/xfconf/xfce-perchannel-xml/xfce4-desktop.xml
-        regexp: '(?P<a>/usr/share/backgrounds/)xfce/xfce-teal.jpg'
-        replace: '\g<a>greybird.svg'
+# - name: Execute block as normal user
+#   block:
+#     - name: Change desktop background
+#       replace:
+#         path: ~/.config/xfce4/xfconf/xfce-perchannel-xml/xfce4-desktop.xml
+#         regexp: '(?P<a>/usr/share/backgrounds/)xfce/xfce-teal.jpg'
+#         replace: '\g<a>greybird.svg'

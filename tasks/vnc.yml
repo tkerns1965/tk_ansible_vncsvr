@@ -10,9 +10,7 @@
           (?i)would you like to enter a view-only password (y/n)?: "n"
         creates: ~/.vnc/xstartup
       # no_log: true
-
-    - name: Stop vnc server process
-      command: vncserver -kill :0
+      notify: Stop vnc server process
 
     - name: Backup existing xstartup file
       command: mv ~/.vnc/xstartup ~/.vnc/xstartup.bak

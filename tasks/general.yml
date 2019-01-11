@@ -22,7 +22,7 @@
 
     - name: Set login banner
       copy:
-        src: ./general/motd.template
+        src: ./templates/general/motd.template
         dest: /etc/motd
 
     - name: Update apt cache

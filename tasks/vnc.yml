@@ -21,9 +21,7 @@
       template:
         src: ./vnc/xstartup.template
         dest:  ~/.vnc/xstartup
-
-    - name: Make new xstartup file executable
-      command: chmod +x ~/.vnc/xstartup
+        mode: 0755
 
 # - name: Execute block as sudo
 #   become: true

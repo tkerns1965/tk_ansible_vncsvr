@@ -26,7 +26,7 @@
   block:
     - name: Create vnc service
       template:
-        src: /vnc/vncserver@.service.template
+        src: ./vnc/vncserver@.service.template
         dest: /etc/systemd/system/vncserver@.service
 
     - name: Make system aware of vnc service

@@ -1,1 +1,6 @@
 ---
+- name: Execute block as sudo
+  become: true
+  block:
+    - name: Allow change of hostname
+      command: cp /etc/xdg/xfce4/panel/default.xml /etc/xdg/xfce4/xfconf/xfce-perchannel-xml/xfce4-panel.xml

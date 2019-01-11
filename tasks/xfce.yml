@@ -29,7 +29,7 @@
         state: directory
         mode: 0755
 
-    - name: Set login banner
+    - name: Set desktop background
       copy:
         src: ./templates/xfce/xfce4-desktop.xml.template
         dest: ~/.config/xfce4/xfconf/xfce-perchannel-xml/xfce4-desktop.xml

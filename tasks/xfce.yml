@@ -20,3 +20,9 @@
         regexp: '^(?P<a>\*mode:.*)random$'
         line: '\g<a>off'
         backrefs: yes
+
+    - name: Change desktop background
+      replace:
+        path: ~/.config/xfce4/xfconf/xfce-perchannel-xml/xfce4-desktop.xml
+        regexp: '(?P<a>/usr/share/backgrounds/)xfce/xfce-tesl.jpg'
+        replace: '\g<a>greybird.svg'

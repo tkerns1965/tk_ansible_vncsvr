@@ -26,5 +26,5 @@
     - name: Change desktop background
       replace:
         path: ~/.config/xfce4/xfconf/xfce-perchannel-xml/xfce4-desktop.xml
-        regexp: '(?P<a>/usr/share/backgrounds/)xfce/xfce-tesl.jpg'
+        regexp: '(?P<a>/usr/share/backgrounds/)xfce/xfce-teal.jpg'
         replace: '\g<a>greybird.svg'

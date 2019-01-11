@@ -23,12 +23,10 @@
         dest:  ~/.vnc/xstartup
         mode: 0755
 
-# - name: Execute block as sudo
-#   become: true
-#   block:
-#     - name: Allow change of hostname
-#       lineinfile:
-#         path: /etc/cloud/cloud.cfg
-#         regexp: '^(?P<a>preserve_hostname: )false$'
-#         line: '\g<a>true'
-#         backrefs: yes
+- name: Execute block as sudo
+  become: true
+  block:
+    - name: Create vnc service
+      template:
+        src: /vnc/vncserver@.service.template
+        dest: /etc/systemd/system/vncserver@.service

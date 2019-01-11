@@ -9,6 +9,9 @@
     - import_tasks: tasks/vnc.yml
       tags: vnc
 
+    - import_tasks: tasks/xfce.yml
+      tags: xfce
+
     - name: Reboot system if required
       become: true
       command: shutdown -r now 'Rebooting to complete system upgrade'
@@ -20,3 +23,6 @@
 
     - import_tasks: handlers/vnc.yml
       tags: vnc
+
+    - import_tasks: handlers/xfce.yml
+      tags: xfce

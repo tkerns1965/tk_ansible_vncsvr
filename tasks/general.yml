@@ -21,7 +21,7 @@
         backrefs: yes
 
     - name: Set login banner
-      template:
+      copy:
         src: ./general/motd.template
         dest: /etc/motd
 

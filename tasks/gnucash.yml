@@ -16,7 +16,7 @@
   timezone:
     name: US/Eastern
 
-name: Install gnucash packages
+- name: Install gnucash packages
   become: true
   apt:
     name="{{ item }}"

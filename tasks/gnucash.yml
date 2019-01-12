@@ -11,6 +11,7 @@
     remote_src: yes
 
 - name: Set timezone to US/Eastern
+  become: true
   timezone:
     name: US/Eastern
 

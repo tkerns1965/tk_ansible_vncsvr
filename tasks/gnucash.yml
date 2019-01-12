@@ -16,12 +16,13 @@
   timezone:
     name: US/Eastern
 
-# - name: Install gnucash packages
-#   become: true
-#   apt:
-#     name="{{ item }}"
-#     state=latest
-#   with_items: "{{ gnucash_packages }}"
+name: Install gnucash packages
+  become: true
+  apt:
+    name="{{ item }}"
+    state=latest
+    update_cache: yes
+  with_items: "{{ gnucash_packages }}"
 
 # - name: Download gnucash source
 #   command:

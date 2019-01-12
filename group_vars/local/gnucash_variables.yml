@@ -1,4 +1,16 @@
 gnucash_packages:
-  - firefox
-  - tightvncserver
-  - xfce4
+  - libpython3-dev
+  - libsecret-1-dev
+  - libboost-dev
+  - libboost-date-time-dev
+  - libboost-filesystem-dev
+  - libboost-locale-dev
+  - libboost-regex-dev
+  - libboost-system-dev
+  - libgtest-dev
+  - google-mock
+  - libxml2-utils
+  - swig
+  - python3-pip
+  - python3-setuptools
+  - python3-wheel

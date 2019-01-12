@@ -1,11 +1,11 @@
 [Unit]
-Description=cifs mount of filesvr01 current-docs
+Description={{ smbmount_description }}
 After=network.target
 
 [Mount]
-What=//filesvr01/current-docs
-Where=/mnt/filesvr01_current_docs
-Options=credentials=/home/tony/.smbcredentials,uid=1000,gid=1000
+What={{ smbmount_what }}
+Where={{ smbmount_where }}
+Options={{ smbmount_options }}
 Type=cifs
 
 [Install]

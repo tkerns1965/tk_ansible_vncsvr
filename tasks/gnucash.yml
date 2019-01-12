@@ -9,6 +9,7 @@
     src: ~/Downloads/gnucash-3.4.tar.bz2
     dest: ~/Downloads/
     remote_src: yes
+    creates: ~/Downloads/gnucash-3.4/
 
 - name: Set timezone to US/Eastern
   become: true

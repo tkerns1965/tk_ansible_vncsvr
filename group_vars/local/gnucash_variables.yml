@@ -1,0 +1,4 @@
+gnucash_packages:
+  - firefox
+  - tightvncserver
+  - xfce4

@@ -1,2 +1,2 @@
 ---
-   83  chmod 600 .smbcredentials
+# chmod 600 .smbcredentials

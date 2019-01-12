@@ -1,0 +1,12 @@
+[Unit]
+Description=cifs mount of filesvr01 current-docs
+After=network.target
+
+[Mount]
+What=//filesvr01/current-docs
+Where=/mnt/filesvr01_current_docs
+Options=credentials=/home/tony/.smbcredentials,uid=1000,gid=1000
+Type=cifs
+
+[Install]
+WantedBy=multi-user.target

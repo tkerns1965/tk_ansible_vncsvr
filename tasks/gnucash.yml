@@ -19,8 +19,8 @@
 - name: Install gnucash packages
   become: true
   apt:
-    name="{{ item }}"
-    state=latest
+    name: "{{ item }}"
+    state: latest
     update_cache: yes
   with_items: "{{ gnucash_packages }}"
 

@@ -4,6 +4,12 @@
     url: https://downloads.sourceforge.net/sourceforge/gnucash/gnucash-3.4.tar.bz2
     dest: ~/Downloads/
 
+- name: Extract gnucash source
+  unarchive: 
+    src: ~/Downloads/gnucash-3.4.tar.bz2
+    dest: ~/Downloads/
+    remote_src: yes
+
 # - name: Install gnucash packages
 #   become: true
 #   apt:

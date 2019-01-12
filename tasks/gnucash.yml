@@ -1,1 +1,17 @@
 ---
+# https://downloads.sourceforge.net/sourceforge/gnucash/gnucash-3.4.tar.bz2
+   56  sudo apt install -y libpython3-dev
+   58  sudo apt install -y libsecret-1-dev
+   60  sudo apt install -y libboost-dev
+   62  sudo apt install -y libboost-date-time-dev libboost-filesystem-dev libboost-locale-dev libboost-regex-dev libboost-system-dev
+   64  sudo apt install -y libgtest-dev
+   66  sudo apt install -y google-mock
+   68  sudo apt install -y libxml2-utils
+   70  sudo apt install -y swig
+   71  sudo apt install -y python3-pip
+   72  sudo apt install -y python3-setuptools
+   73  sudo apt install -y python3-wheel
+   74  cmake -DCMAKE_INSTALL_PREFIX=/usr/local -DWITH_GNUCASH=ON -DWITH_PYTHON=ON -DFORCE_SWIG=ON -DWITH_AQBANKING=OFF -DWITH_OFX=OFF -DWITH_SQL=OFF /home/tony/Downloads/gnucash-3.3
+   75  make
+   76  make install
+   77  sudo make install

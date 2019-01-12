@@ -1,1 +1,13 @@
+---
+- name: Run this playbook on localhost
+  hosts: local
 
+  tasks:
+    - import_tasks: tasks/gnucash.yml
+      tags: gnucash
+
+    - import_tasks: tasks/vscode.yml
+      tags: vscode
+
+    - import_tasks: tasks/smb.yml
+      tags: smb

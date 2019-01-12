@@ -10,6 +10,10 @@
     dest: ~/Downloads/
     remote_src: yes
 
+- name: Set timezone to US/Eastern
+  timezone:
+    name: US/Eastern
+
 # - name: Install gnucash packages
 #   become: true
 #   apt:

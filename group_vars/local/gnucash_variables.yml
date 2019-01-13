@@ -1,4 +1,5 @@
 gnucash_packages:
+  - cmake
   - libpython3-dev
   - libsecret-1-dev
   - libboost-dev

@@ -13,6 +13,10 @@
       hostname:
         name: "{{ vncsvr_hostname }}"
 
+    - name: Set timezone to US/Eastern
+      timezone:
+        name: US/Eastern
+
     - name: Turn off MOTD news service
       lineinfile:
         path: /etc/default/motd-news

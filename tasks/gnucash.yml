@@ -20,18 +20,10 @@
   with_items: "{{ gnucash_packages }}"
 
 - name: Download gnucash source
-  command:
-  args:
-    argv:
-      - cmake
-      - -DCMAKE_INSTALL_PREFIX=/usr/local
-      - -DWITH_GNUCASH=ON
-      - -DWITH_PYTHON=ON
-      - -DFORCE_SWIG=ON
-      - -DWITH_AQBANKING=OFF
-      - -DWITH_OFX=OFF
-      - -DWITH_SQL=OFF
-      - /home/tony/Downloads/gnucash-3.3
+  command: cmake -DCMAKE_INSTALL_PREFIX=/usr/local
+    -DWITH_GNUCASH=ON -DWITH_PYTHON=ON -DFORCE_SWIG=ON
+    -DWITH_AQBANKING=OFF -DWITH_OFX=OFF -DWITH_SQL=OFF
+    ~/Downloads/gnucash-3.3
 
 # make
 # make install

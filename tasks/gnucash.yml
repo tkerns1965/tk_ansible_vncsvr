@@ -17,6 +17,7 @@
     name: "{{ item }}"
     state: latest
     update_cache: yes
+    install_recommends: no
   with_items: "{{ gnucash_packages }}"
 
 - name: Download gnucash source

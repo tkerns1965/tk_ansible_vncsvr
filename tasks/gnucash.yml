@@ -23,7 +23,7 @@
   command: cmake -DCMAKE_INSTALL_PREFIX=/usr/local
     -DWITH_GNUCASH=ON -DWITH_PYTHON=ON -DFORCE_SWIG=ON
     -DWITH_AQBANKING=OFF -DWITH_OFX=OFF -DWITH_SQL=OFF
-    ~/Downloads/gnucash-3.3
+    ~/Downloads/gnucash-3.4
 
 # make
 # make install

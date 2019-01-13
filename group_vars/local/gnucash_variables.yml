@@ -1,4 +1,4 @@
-gnucash_packages:
+gnucash_build_packages:
   - build-essential
   - cmake
   - pkg-config

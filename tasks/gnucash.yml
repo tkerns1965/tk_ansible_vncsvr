@@ -11,11 +11,6 @@
     remote_src: yes
     creates: ~/Downloads/gnucash-3.4/
 
-- name: Set timezone to US/Eastern
-  become: true
-  timezone:
-    name: US/Eastern
-
 - name: Install gnucash packages
   become: true
   apt:
@@ -24,19 +19,19 @@
     update_cache: yes
   with_items: "{{ gnucash_packages }}"
 
-# - name: Download gnucash source
-#   command:
-#   args:
-#     argv:
-#       - cmake
-#       - -DCMAKE_INSTALL_PREFIX=/usr/local
-#       - -DWITH_GNUCASH=ON
-#       - -DWITH_PYTHON=ON
-#       - -DFORCE_SWIG=ON
-#       - -DWITH_AQBANKING=OFF
-#       - -DWITH_OFX=OFF
-#       - -DWITH_SQL=OFF
-#       - /home/tony/Downloads/gnucash-3.3
+- name: Download gnucash source
+  command:
+  args:
+    argv:
+      - cmake
+      - -DCMAKE_INSTALL_PREFIX=/usr/local
+      - -DWITH_GNUCASH=ON
+      - -DWITH_PYTHON=ON
+      - -DFORCE_SWIG=ON
+      - -DWITH_AQBANKING=OFF
+      - -DWITH_OFX=OFF
+      - -DWITH_SQL=OFF
+      - /home/tony/Downloads/gnucash-3.3
 
 # make
 # make install

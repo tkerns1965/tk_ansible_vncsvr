@@ -13,9 +13,9 @@
       hostname:
         name: "{{ vncsvr_hostname }}"
 
-    - name: Set timezone to US/Eastern
+    - name: "Set timezone to {{ vncsvr_timezone }}"
       timezone:
-        name: US/Eastern
+        name: "{{ vncsvr_timezone }}"
 
     - name: Turn off MOTD news service
       lineinfile:

@@ -26,6 +26,21 @@
     insertafter: '^option \(ALLOW_OLD_GETTEXT'
     line: 'option (FORCE_SWIG "Force swig wrappers generation." OFF)'
 
+- name: Modify CMakeLists.txt
+  blockinfile: 
+    path: ~/Downloads/gnucash-3.4/CMakeLists.txt
+    insertbefore: '^set\(GENERATE_SWIG_WRAPPERS ${BUILDING_FROM_VCS}'
+    block: |
+      if (FORCE_SWIG)
+        set(GENERATE_SWIG_WRAPPERS "YES")
+      else()
+
+- name: Modify CMakeLists.txt
+  lineinfile: 
+    path: ~/Downloads/gnucash-3.4/CMakeLists.txt
+    insertafter: '^set\(GENERATE_SWIG_WRAPPERS ${BUILDING_FROM_VCS}'
+    line: 'endif()'
+
 # - name: Prepare to build gnucash
 #   command: |
 #     cmake -DCMAKE_INSTALL_PREFIX=/usr/local

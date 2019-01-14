@@ -23,8 +23,8 @@
 - name: Modify CMakeLists.txt
   lineinfile: 
     path: ~/Downloads/gnucash-3.4/CMakeLists.txt
-    insertafter: '^option (ALLOW_OLD_GETTEXT '
-    line: 'option (FORCE_SWIG "Force swig wrappers generation." OFF)'
+    insertafter: '^option \(ALLOW_OLD_GETTEXT '
+    line: 'option \(FORCE_SWIG "Force swig wrappers generation." OFF\)'
 
 # - name: Prepare to build gnucash
 #   command: |

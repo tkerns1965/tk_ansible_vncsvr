@@ -24,7 +24,7 @@
   lineinfile: 
     path: ~/Downloads/gnucash-3.4/CMakeLists.txt
     regexp: '^(?P<a>set\(GENERATE_SWIG_WRAPPERS ${BUILDING_FROM_VCS}.*)$'
-    line: '  \g<a>'
+    line: '\g  <a>'
     backrefs: yes
 
 - name: Continue to modify CMakeLists.txt

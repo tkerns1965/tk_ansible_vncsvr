@@ -1,17 +1,19 @@
 ---
-- name: Prepare to download vscode
-  shell: curl https://packages.microsoft.com/keys/microsoft.asc | gpg --dearmor > microsoft.gpg
-  args:
-    chdir: ~/Downloads
-    creates: ~/Downloads/microsoft.gpg
-    warn: no
-
-- name: Prepare to download vscode
+- name: Execute block as sudo
   become: yes
-  shell: install -o root -g root -m 644 microsoft.gpg /etc/apt/trusted.gpg.d/
-  args:
-    chdir: ~/Downloads
-    creates: /etc/apt/trusted.gpg.d/microsoft.gpg
+  block:
+    - name: Prepare to download vscode
+      shell: curl https://packages.microsoft.com/keys/microsoft.asc | gpg --dearmor > microsoft.gpg
+      args:
+        # chdir: ~/Downloads
+        creates: ~/microsoft.gpg
+        warn: no
+
+    - name: Prepare to download vscode
+      shell: install -o root -g root -m 644 microsoft.gpg /etc/apt/trusted.gpg.d/
+      args:
+        # chdir: ~/Downloads
+        creates: /etc/apt/trusted.gpg.d/microsoft.gpg
 
 # sudo sh -c 'echo "deb [arch=amd64] https://packages.microsoft.com/repos/vscode stable main" > /etc/apt/sources.list.d/vscode.list'
 # sudo apt-get install apt-transport-https

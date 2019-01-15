@@ -33,6 +33,7 @@
     insertafter: "{{ item.insertafter }}"
     line: "{{ item.line }}"
   with_items:
+    - { insertafter: '^option \(ALLOW_OLD_GETTEXT', line: 'option (FORCE_SWIG "Force swig wrappers generation." OFF)' }
     - { insertafter: '^# By default they will only be generated', line: 'if (FORCE_SWIG)' }
     - { insertafter: '^if \(FORCE_SWIG\)', line: '  set(GENERATE_SWIG_WRAPPERS "YES")' }
     - { insertafter: '^  set\(GENERATE_SWIG_WRAPPERS "YES"\)', line: 'else()' }

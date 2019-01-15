@@ -54,6 +54,10 @@
   args:
     chdir: ~/Downloads/gnucash-3.4-BUILD
 
+- name: Make gnucash
+  make:
+    chdir: ~/Downloads/gnucash-3.4-BUILD
+
 # make
 # make install
 # sudo make install

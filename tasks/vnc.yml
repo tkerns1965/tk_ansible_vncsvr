@@ -1,25 +1,23 @@
 ---
-- name: Execute block as normal user
-  block:
-    - name: Set vnc server password
-      expect:
-        command: vncserver :0
-        responses:
-          (?i)password: "{{ vnc_password }}"
-          (?i)verify: "{{ vnc_password }}"
-          (?i)would you like to enter a view-only password (y/n)?: "n"
-        creates: ~/.vnc/xstartup
-      # no_log: true
-      notify: Stop vnc server process
+- name: Set vnc server password
+  expect:
+    command: vncserver :0
+    responses:
+      (?i)password: "{{ vnc_password }}"
+      (?i)verify: "{{ vnc_password }}"
+      (?i)would you like to enter a view-only password (y/n)?: "n"
+    creates: ~/.vnc/xstartup
+  # no_log: true
+  notify: Stop vnc server process
 
-    - name: Backup existing xstartup file
-      command: mv ~/.vnc/xstartup ~/.vnc/xstartup.bak
+- name: Backup existing xstartup file
+  command: mv ~/.vnc/xstartup ~/.vnc/xstartup.bak
 
-    - name: Insert new xstartup file
-      copy:
-        src: ./templates/vnc/xstartup.template
-        dest:  ~/.vnc/xstartup
-        mode: 0755
+- name: Insert new xstartup file
+  copy:
+    src: ./templates/vnc/xstartup.template
+    dest:  ~/.vnc/xstartup
+    mode: 0755
 
 - name: Execute block as sudo
   become: true

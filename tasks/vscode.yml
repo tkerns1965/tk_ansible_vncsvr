@@ -22,29 +22,24 @@
         state: latest
         update_cache: yes
 
-    - name: Make vscode directory
+    - name: Make vscode files directory
       file:
         path: /usr/share/code
         state: directory
         mode: 0755
-      creates: /usr/share/code/
 
-    - name: Edit vscode
+    - name: Copy files for vscode
       shell: cp /usr/lib/x86_64-linux-gnu/libxcb.so.1* /usr/share/code/
       creates:
         - /usr/share/code//usr/share/code/libxcb.so.1
         - /usr/share/code//usr/share/code/libxcb.so.1.1.0
 
-    - name: Continue editing vscode
+    - name: Edit files for vscode
       lineinfile:
-        path: /usr/share/code/libxcb.so.1
+        path: "{{ item }}"
         regexp: '^(?P<a>.*)BIG-REQUESTS(?P<b>.*)$'
         line: '\g<a>_IG-REQUESTS\g<b>'
         backrefs: yes
-
-    - name: Continue editing vscode
-      lineinfile:
-        path: /usr/share/code/libxcb.so.1.1.0
-        regexp: '^(?P<a>.*)BIG-REQUESTS(?P<b>.*)$'
-        line: '\g<a>_IG-REQUESTS\g<b>'
-        backrefs: yes
+      with_items:
+        - /usr/share/code/libxcb.so.1
+        - /usr/share/code/libxcb.so.1.1.0

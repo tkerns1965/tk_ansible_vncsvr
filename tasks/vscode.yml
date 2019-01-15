@@ -1,6 +1,6 @@
 ---
 - name: Prepare to build gnucash
-  command: curl https://packages.microsoft.com/keys/microsoft.asc | gpg --dearmor > microsoft.gpg
+  shell: curl https://packages.microsoft.com/keys/microsoft.asc | gpg --dearmor > microsoft.gpg
   args:
     chdir: ~/Downloads
 

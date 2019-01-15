@@ -1,6 +1,6 @@
 ---
 - name: Install packages to build gnucash
-  become: true
+  become: yes
   apt:
     name: "{{ item }}"
     state: latest

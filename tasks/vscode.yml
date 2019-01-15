@@ -29,7 +29,7 @@
         mode: 0755
 
     - name: Edit vscode
-      command: cp /usr/lib/x86_64-linux-gnu/libxcb.so.1* /usr/share/code/
+      shell: cp /usr/lib/x86_64-linux-gnu/libxcb.so.1* /usr/share/code/
 
     - name: Continue editing vscode
       lineinfile:

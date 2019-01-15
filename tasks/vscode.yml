@@ -3,6 +3,7 @@
   shell: curl https://packages.microsoft.com/keys/microsoft.asc | gpg --dearmor > microsoft.gpg
   args:
     chdir: ~/Downloads
+    creates: ~/Downloads/microsoft.gpg
     warn: false
 
 # sudo install -o root -g root -m 644 microsoft.gpg /etc/apt/trusted.gpg.d/

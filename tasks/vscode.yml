@@ -3,7 +3,7 @@
   become: yes
   block:
     - name: Prepare to download vscode
-      shell: "{{ items }}"
+      shell: "{{ item }}"
       args:
         warn: no
         # creates: ~/microsoft.gpg

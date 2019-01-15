@@ -27,13 +27,13 @@
         path: /usr/share/code
         state: directory
         mode: 0755
-      creates: /usr/share/code/
 
     - name: Copy files for vscode
       shell: cp /usr/lib/x86_64-linux-gnu/libxcb.so.1* /usr/share/code/
-      # creates:
-      #   - /usr/share/code//usr/share/code/libxcb.so.1
-      #   - /usr/share/code//usr/share/code/libxcb.so.1.1.0
+      args:
+        creates:
+          - /usr/share/code//usr/share/code/libxcb.so.1
+          - /usr/share/code//usr/share/code/libxcb.so.1.1.0
 
     - name: Edit files for vscode
       lineinfile:

@@ -1,7 +1,5 @@
 vncsvr_hostname: vncsvr01
-
 vncsvr_timezone: US/Eastern
-
 vncsvr_packages:
   - firefox
   - tightvncserver

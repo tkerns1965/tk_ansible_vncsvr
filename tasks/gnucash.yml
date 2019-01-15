@@ -37,7 +37,7 @@
     - { insertafter: '^# By default they will only be generated', line: 'if (FORCE_SWIG)' }
     - { insertafter: '^if \(FORCE_SWIG\)', line: '  set(GENERATE_SWIG_WRAPPERS "YES")' }
     - { insertafter: '^  set\(GENERATE_SWIG_WRAPPERS "YES"\)', line: 'else()' }
-    - { insertafter: '^  set\(GENERATE_SWIG_WRAPPERS ${BUILDING_FROM_VCS}', line: 'endif()' }
+    - { insertafter: '^  set\(GENERATE_SWIG_WRAPPERS \${BUILDING_FROM_VCS}', line: 'endif()' }
 
 # - name: Prepare to build gnucash
 #   command: |

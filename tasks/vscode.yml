@@ -6,7 +6,7 @@
       shell: "{{ item.command }}"
       args:
         warn: no
-        creates: "{{ item.creates }}"
+        # creates: "{{ item.creates }}"
       with_items:
         - { command: 'curl https://packages.microsoft.com/keys/microsoft.asc | gpg --dearmor > microsoft.gpg',
             creates: '~/microsoft.gpg' }
@@ -27,12 +27,13 @@
         path: /usr/share/code
         state: directory
         mode: 0755
+      # creates: /usr/share/code/
 
     - name: Copy files for vscode
       shell: cp /usr/lib/x86_64-linux-gnu/libxcb.so.1* /usr/share/code/
-      creates:
-        - /usr/share/code//usr/share/code/libxcb.so.1
-        - /usr/share/code//usr/share/code/libxcb.so.1.1.0
+      # creates:
+      #   - /usr/share/code//usr/share/code/libxcb.so.1
+      #   - /usr/share/code//usr/share/code/libxcb.so.1.1.0
 
     - name: Edit files for vscode
       lineinfile:

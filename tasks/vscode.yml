@@ -15,13 +15,26 @@
         - echo "deb [arch=amd64] https://packages.microsoft.com/repos/vscode stable main" > /etc/apt/sources.list.d/vscode.list
         # - sh -c 'echo "deb [arch=amd64] https://packages.microsoft.com/repos/vscode stable main" > /etc/apt/sources.list.d/vscode.list'
 
-    - name: Install packages to build gnucash
+    - name: Install vscode
       apt:
         name: code
         # name: code-insiders
         state: latest
         update_cache: yes
 
-# sudo cp /usr/lib/x86_64-linux-gnu/libxcb.so.1* /usr/share/code/
-# sudo sed -i 's/BIG-REQUESTS/_IG-REQUESTS/' /usr/share/code/libxcb.so.1
-# sudo sed -i 's/BIG-REQUESTS/_IG-REQUESTS/' /usr/share/code/libxcb.so.1.1.0 
+    - name: Edit vscode
+      command: cp /usr/lib/x86_64-linux-gnu/libxcb.so.1* /usr/share/code/
+
+    - name: Continue editing vscode
+      lineinfile:
+        path: /usr/share/code/libxcb.so.1
+        regexp: '^(?P<a>.*)BIG-REQUESTS(?P<b>.*)$'
+        line: '\g<a>_IG-REQUESTS\g<b>'
+        backrefs: yes
+
+    - name: Continue editing vscode
+      lineinfile:
+        path: /usr/share/code/libxcb.so.1.1.0
+        regexp: '^(?P<a>.*)BIG-REQUESTS(?P<b>.*)$'
+        line: '\g<a>_IG-REQUESTS\g<b>'
+        backrefs: yes

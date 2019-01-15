@@ -1,6 +1,6 @@
 ---
 - name: Execute block as sudo
-  become: true
+  become: yes
   block:
     - name: Allow change of hostname
       lineinfile:

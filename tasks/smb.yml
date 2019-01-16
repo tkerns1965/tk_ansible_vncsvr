@@ -1,8 +1,8 @@
 ---
 - name: Create smb mount credentials
-  templates:
+  template:
     src: ./templates/smb/.smbcredentials.template
-    dest:  ~/.smbcredentials
+    dest: ~/.smbcredentials
     mode: 0600
 
 - name: Execute block as sudo

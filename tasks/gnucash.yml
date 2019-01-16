@@ -1,65 +1,70 @@
 ---
-- name: Install packages to build gnucash
+- name: Execute block as sudo
   become: yes
-  apt:
-    name: "{{ item }}"
-    state: latest
-    update_cache: yes
-    install_recommends: no
-  with_items: "{{ gnucash_build_packages }}"
+  block:
+    - name: Install packages to build gnucash
+      apt:
+        name: "{{ item }}"
+        state: latest
+        update_cache: yes
+        install_recommends: no
+      with_items: "{{ gnucash_build_packages }}"
 
-- name: Download gnucash source
-  get_url: 
-    url: https://downloads.sourceforge.net/sourceforge/gnucash/gnucash-3.4.tar.bz2
-    dest: ~/Downloads/
+    - name: Make gnucash directories
+      file:
+        path: "/gnucash-3.4/{{ item }}"
+        state: directory
+        mode: 0755
+      with_items:
+        - SOURCE
+        - BUILD
 
-- name: Extract gnucash source
-  unarchive: 
-    src: ~/Downloads/gnucash-3.4.tar.bz2
-    dest: ~/Downloads/
-    remote_src: yes
-    creates: ~/Downloads/gnucash-3.4/
+    - name: Download gnucash source
+      get_url: 
+        url: https://downloads.sourceforge.net/sourceforge/gnucash/gnucash-3.4.tar.bz2
+        dest: /gnucash-3.4/
 
-- name: Modify CMakeLists.txt
-  lineinfile: 
-    path: ~/Downloads/gnucash-3.4/CMakeLists.txt
-    regexp: '^(?P<a>set\(GENERATE_SWIG_WRAPPERS \${BUILDING_FROM_VCS}.*)$'
-    line: '  \g<a>'
-    backrefs: yes
+    - name: Extract gnucash source
+      unarchive: 
+        src: /gnucash-3.4/gnucash-3.4.tar.bz2
+        dest: /gnucash-3.4/SOURCE/
+        remote_src: yes
+        extra_opts: [--strip-components=1]
+        creates: /gnucash-3.4/SOURCE/CMakeLists.txt
 
-- name: Continue to modify CMakeLists.txt
-  lineinfile: 
-    path: ~/Downloads/gnucash-3.4/CMakeLists.txt
-    insertafter: "{{ item.insertafter }}"
-    line: "{{ item.line }}"
-  with_items:
-    - { insertafter: '^option \(ALLOW_OLD_GETTEXT', line: 'option (FORCE_SWIG "Force swig wrappers generation." OFF)' }
-    - { insertafter: '^# By default they will only be generated', line: 'if (FORCE_SWIG)' }
-    - { insertafter: '^if \(FORCE_SWIG\)', line: '  set(GENERATE_SWIG_WRAPPERS "YES")' }
-    - { insertafter: '^  set\(GENERATE_SWIG_WRAPPERS "YES"\)', line: 'else()' }
-    - { insertafter: '^  set\(GENERATE_SWIG_WRAPPERS \${BUILDING_FROM_VCS}', line: 'endif()' }
+    - name: Modify CMakeLists.txt
+      lineinfile:
+        path: /gnucash-3.4/SOURCE/CMakeLists.txt
+        regexp: '^(?P<a>set\(GENERATE_SWIG_WRAPPERS \${BUILDING_FROM_VCS}.*)$'
+        line: '  \g<a>'
+        backrefs: yes
 
-- name: Make gnucash build directory
-  file:
-    path: ~/Downloads/gnucash-3.4-BUILD
-    state: directory
-    mode: 0755
+    - name: Continue to modify CMakeLists.txt
+      lineinfile:
+        path: /gnucash-3.4/SOURCE/CMakeLists.txt
+        insertafter: "{{ item.insertafter }}"
+        line: "{{ item.line }}"
+      with_items:
+        - { insertafter: '^option \(ALLOW_OLD_GETTEXT', line: 'option (FORCE_SWIG "Force swig wrappers generation." OFF)' }
+        - { insertafter: '^# By default they will only be generated', line: 'if (FORCE_SWIG)' }
+        - { insertafter: '^if \(FORCE_SWIG\)', line: '  set(GENERATE_SWIG_WRAPPERS "YES")' }
+        - { insertafter: '^  set\(GENERATE_SWIG_WRAPPERS "YES"\)', line: 'else()' }
+        - { insertafter: '^  set\(GENERATE_SWIG_WRAPPERS \${BUILDING_FROM_VCS}', line: 'endif()' }
 
-- name: Prepare to build gnucash
-  command: |
-    cmake -DCMAKE_INSTALL_PREFIX=/usr/local
-      -DWITH_GNUCASH=ON -DWITH_PYTHON=ON -DFORCE_SWIG=ON
-      -DWITH_AQBANKING=OFF -DWITH_OFX=OFF -DWITH_SQL=OFF
-      ~/Downloads/gnucash-3.4
-  args:
-    chdir: ~/Downloads/gnucash-3.4-BUILD
+    - name: Prepare to build gnucash
+      command: |
+        cmake -DCMAKE_INSTALL_PREFIX=/usr/local
+          -DWITH_GNUCASH=ON -DWITH_PYTHON=ON -DFORCE_SWIG=ON
+          -DWITH_AQBANKING=OFF -DWITH_OFX=OFF -DWITH_SQL=OFF
+          /gnucash-3.4/SOURCE/
+      args:
+        chdir: /gnucash-3.4/BUILD
 
-- name: Make gnucash
-  make:
-    chdir: ~/Downloads/gnucash-3.4-BUILD
+    - name: Make gnucash
+      make:
+        chdir: /gnucash-3.4/BUILD
 
-- name: Make gnucash
-  become: yes
-  make:
-    chdir: ~/Downloads/gnucash-3.4-BUILD
-    target: install
+    - name: Make gnucash
+      make:
+        chdir: /gnucash-3.4/BUILD
+        target: install

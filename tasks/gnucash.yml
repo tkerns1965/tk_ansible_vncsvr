@@ -64,7 +64,16 @@
       make:
         chdir: /gnucash-3.4/BUILD
 
-    - name: Make gnucash
+    - name: Install gnucash
       make:
         chdir: /gnucash-3.4/BUILD
         target: install
+
+- name: Modify .bashrc
+  lineinfile:
+    path: ~/.bashrc
+    insertafter: EOF
+    line: "{{ item }}"
+  with_items:
+    - ""
+    - "export PYTHONPATH=/usr/local/lib/python3/dist-packages"

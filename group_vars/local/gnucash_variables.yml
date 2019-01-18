@@ -24,3 +24,13 @@ gnucash_build_packages:
   - python3-pip
   - python3-setuptools
   - python3-wheel
+
+vscode_packages:
+  - code
+  # - code-insiders
+
+vscode_python_packages:
+  - pylint
+
+smb_packages:
+  - cifs-utils

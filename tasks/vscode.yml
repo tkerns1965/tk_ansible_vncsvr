@@ -6,7 +6,7 @@
       shell: "{{ item.command | quote }}"
       args:
         warn: no
-        creates: "{{ item.creates }}"
+        creates: "{{ item.creates | quote }}"
       with_items:
         - { command: 'curl https://packages.microsoft.com/keys/microsoft.asc | gpg --dearmor > microsoft.gpg',
             creates: '~/microsoft.gpg' }

@@ -15,7 +15,7 @@
         - { command: 'echo "deb [arch=amd64] https://packages.microsoft.com/repos/vscode stable main" > /etc/apt/sources.list.d/vscode.list',
             creates: '/etc/apt/sources.list.d/vscode.list' }
 
-    - name: Install vscode
+    - name: Install vscode packages
       apt:
         name: "{{ item }}"
         state: latest

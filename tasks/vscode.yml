@@ -17,10 +17,10 @@
 
     - name: Install vscode
       apt:
-        name: code
-        # name: code-insiders
+        name: "{{ item }}"
         state: latest
         update_cache: yes
+      with_items: "{{ vscode_packages }}"
 
     - name: Make vscode files directory
       file:
@@ -45,7 +45,10 @@
         - /usr/share/code/libxcb.so.1
         - /usr/share/code/libxcb.so.1.1.0
 
-- name: Install python extension for vscode
-  shell: code --install-extension ms-python.python
+- name: Install extensions for vscode
+  shell: "code --install-extension {{ item }}"
+  with_items: "{{ vscode_extensions }}"
 
-# /usr/bin/python3 -m pip install -U pylint --user
+- name: Install python packages for vscode
+  shell: "python3 -m pip install -U {{ item }} --user"
+  with_items: "{{ vscode_python_packages }}"

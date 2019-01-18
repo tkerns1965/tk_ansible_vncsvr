@@ -44,3 +44,8 @@
       with_items:
         - /usr/share/code/libxcb.so.1
         - /usr/share/code/libxcb.so.1.1.0
+
+- name: Install python extension for vscode
+  shell: code --install-extension ms-python.python
+
+# /usr/bin/python3 -m pip install -U pylint --user

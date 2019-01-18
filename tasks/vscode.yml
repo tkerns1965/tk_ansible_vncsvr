@@ -3,7 +3,7 @@
   become: yes
   block:
     - name: Prepare to download vscode
-      shell: "{{ item.command }}"
+      shell: "{{ item.command | quote }}"
       args:
         warn: no
         creates: "{{ item.creates }}"
@@ -29,11 +29,11 @@
         mode: 0755
 
     - name: Copy files for vscode
-      shell: cp /usr/lib/x86_64-linux-gnu/libxcb.so.1* /usr/share/code/
-      args:
-        creates:
-          - /usr/share/code//usr/share/code/libxcb.so.1
-          - /usr/share/code//usr/share/code/libxcb.so.1.1.0
+      copy:
+        src: "{{ item }}"
+        dest: /usr/share/code/
+      with_fileglob:
+        - "/usr/lib/x86_64-linux-gnu/libxcb.so.1*"
 
     - name: Edit files for vscode
       lineinfile:
@@ -46,9 +46,9 @@
         - /usr/share/code/libxcb.so.1.1.0
 
 - name: Install extensions for vscode
-  shell: "code --install-extension {{ item }}"
+  command: "code --install-extension {{ item }}"
   with_items: "{{ vscode_extensions }}"
 
 - name: Install python packages for vscode
-  shell: "python3 -m pip install -U {{ item }} --user"
+  command: "python3 -m pip install -U {{ item }} --user"
   with_items: "{{ vscode_python_packages }}"

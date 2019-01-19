@@ -34,6 +34,7 @@ vscode_extensions:
 
 vscode_python_packages:
   - pylint
+  - fpdf
 
 smb_packages:
   - cifs-utils

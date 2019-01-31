@@ -1,0 +1,3 @@
+<property name="panel-2" type="empty">
+  <property name="autohide-behavior" type="uint" value="1"/>
+</property>

@@ -6,5 +6,6 @@ vncsvr_packages:
   - evince
   - firefox
   - libreoffice-calc
+  - libreoffice-writer
   - tightvncserver
   - xfce4

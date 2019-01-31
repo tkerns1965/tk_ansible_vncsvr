@@ -1,0 +1,5 @@
+---
+- name: Copy sample files
+  copy:
+    src: ./samples/
+    dest: ~/Documents/

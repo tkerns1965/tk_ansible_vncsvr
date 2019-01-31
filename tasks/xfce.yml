@@ -31,3 +31,8 @@
   copy:
     src: ./templates/xfce/xfce4-desktop.xml.template
     dest: ~/.config/xfce4/xfconf/xfce-perchannel-xml/xfce4-desktop.xml
+
+- name: Set panel autohide
+  template:
+    src: ./templates/xfce/xfce4-panel.xml.template
+    dest: ~/.config/xfce4/xfconf/xfce-perchannel-xml/xfce4-panel.xml

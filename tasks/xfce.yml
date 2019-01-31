@@ -33,6 +33,10 @@
     dest: ~/.config/xfce4/xfconf/xfce-perchannel-xml/xfce4-desktop.xml
 
 - name: Set panel autohide
-  template:
-    src: ./templates/xfce/xfce4-panel.xml.template
-    dest: ~/.config/xfce4/xfconf/xfce-perchannel-xml/xfce4-panel.xml
+  # template:
+    # src: ./templates/xfce/xfce4-panel.xml.template
+    # dest: ~/.config/xfce4/xfconf/xfce-perchannel-xml/xfce4-panel.xml
+  lineinfile:
+    path: ~/.config/xfce4/xfconf/xfce-perchannel-xml/xfce4-panel.xml
+    insertafter: '^    <property name="panel-2" type="empty">$'
+    line: '      <property name="autohide-behavior" type="uint" value="1"/>'

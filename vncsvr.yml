@@ -12,6 +12,9 @@
     - import_tasks: tasks/xfce.yml
       tags: xfce
 
+    - import_tasks: tasks/samples.yml
+      tags: samples
+
     - name: Reboot system if required
       become: true
       command: shutdown -r now 'Rebooting to complete system upgrade'

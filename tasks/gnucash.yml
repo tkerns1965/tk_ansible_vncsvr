@@ -69,13 +69,13 @@
         insertafter: "{{ item.insertafter }}"
         block: "{{ item.block }}"
       with_items:
-        - insertafter: "    _new_instance = 'xaccMallocAccount'"
+        - insertafter: "^    _new_instance = 'xaccMallocAccount'$"
           block: |
             # ***** NEW BLOCK BEGIN *****
             class GncBudget(GnuCashCoreClass):
               pass
             # *****  NEW BLOCK END  *****
-        - insertafter: "Book.add_method('qof_book_increment_and_format_counter', 'increment_and_format_counter')"
+        - insertafter: "^Book.add_method('qof_book_increment_and_format_counter', 'increment_and_format_counter')$"
           block: |
             # ***** NEW BLOCK BEGIN *****
             Book.add_method('gnc_book_lookup_budget_by_guid', 'lookup_budget_by_guid')
@@ -84,7 +84,7 @@
             Book.add_method('gnc_book_get_default_budget_guid', 'get_default_budget_guid')
             Book.add_method('gnc_book_set_default_budget_guid', 'set_default_budget_guid')
             # *****  NEW BLOCK END  *****
-        - insertafter: "    Book.get_price_db, GncPriceDB)"
+        - insertafter: "^    Book.get_price_db, GncPriceDB\)$"
           block: |
             # ***** NEW BLOCK BEGIN *****
             #Functions that return GncBudget
@@ -98,7 +98,7 @@
             Book.get_default_budget_guid = method_function_returns_instance(
                 Book.get_default_budget_guid, GUID)
             # *****  NEW BLOCK END  *****
-        - insertafter: "Account.name = property( Account.GetName, Account.SetName )"
+        - insertafter: "^Account.name = property( Account.GetName, Account.SetName )$"
           block: |
             # ***** NEW BLOCK BEGIN *****
             # GncBudget

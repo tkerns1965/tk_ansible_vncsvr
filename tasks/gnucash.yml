@@ -115,14 +115,14 @@
             GncBudget.name = property( GncBudget.get_name, GncBudget.set_name )
             # *****  NEW BLOCK END  *****
 
-    @ - name: Modify gnucash_core.i
-    @   lineinfile:
-    @     path: /gnucash-3.4/SOURCE/bindings/python/gnucash_core.i
-    @     insertafter: "{{ item.insertafter }}"
-    @     line: "{{ item.line }}"
-    @   with_items:
-    @     - { insertafter: '^$', line: '' }
-    @     - { insertafter: '^$', line: '' }
+    # - name: Modify gnucash_core.i
+    #   lineinfile:
+    #     path: /gnucash-3.4/SOURCE/bindings/python/gnucash_core.i
+    #     insertafter: "{{ item.insertafter }}"
+    #     line: "{{ item.line }}"
+    #   with_items:
+    #     - { insertafter: '^$', line: '' }
+    #     - { insertafter: '^$', line: '' }
 
     - name: Prepare to build gnucash
       command: |

@@ -54,6 +54,24 @@
     #     - { insertafter: '^  set\(GENERATE_SWIG_WRAPPERS "YES"\)', line: 'else()' }
     #     - { insertafter: '^  set\(GENERATE_SWIG_WRAPPERS \${BUILDING_FROM_VCS}', line: 'endif()' }
 
+    - name: Modify gnucash_core.i
+      lineinfile:
+        path: /gnucash-3.4/SOURCE/bindings/python/gnucash_core.i
+        insertafter: "{{ item.insertafter }}"
+        line: "{{ item.line }}"
+      with_items:
+        - { insertafter: '^#include "Account.h"$', line: '#include "gnc-budget.h"' }
+        - { insertafter: '^%include <Account.h> */$', line: '%include <gnc-budget.h>' }
+
+    @ - name: Modify gnucash_core.i
+    @   lineinfile:
+    @     path: /gnucash-3.4/SOURCE/bindings/python/gnucash_core.i
+    @     insertafter: "{{ item.insertafter }}"
+    @     line: "{{ item.line }}"
+    @   with_items:
+    @     - { insertafter: '^$', line: '' }
+    @     - { insertafter: '^$', line: '' }
+
     - name: Prepare to build gnucash
       command: |
         cmake -DCMAKE_INSTALL_PREFIX=/usr/local

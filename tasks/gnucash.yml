@@ -84,7 +84,7 @@
             Book.add_method('gnc_book_get_default_budget_guid', 'get_default_budget_guid')
             Book.add_method('gnc_book_set_default_budget_guid', 'set_default_budget_guid')
             # *****  NEW BLOCK END  *****
-        - insertafter: "^    Book\.get_price_db, GncPriceDB\)$"
+        - insertafter: ^    Book\.get_price_db, GncPriceDB\)$
           block: |
             # ***** NEW BLOCK BEGIN *****
             #Functions that return GncBudget

@@ -21,35 +21,38 @@
 
     - name: Download gnucash source
       get_url: 
-        url: https://downloads.sourceforge.net/sourceforge/gnucash/gnucash-3.4.tar.bz2
-        dest: /gnucash-3.4/
+        # url: https://downloads.sourceforge.net/sourceforge/gnucash/gnucash-3.4.tar.bz2
+        # dest: /gnucash-3.4/
+        url: https://github.com/Gnucash/gnucash/archive/3.4.tar.gz
+        dest: /gnucash-3.4/gnucash-3.4.tar.gz
 
     - name: Extract gnucash source
       unarchive: 
-        src: /gnucash-3.4/gnucash-3.4.tar.bz2
+        # src: /gnucash-3.4/gnucash-3.4.tar.bz2
+        src: /gnucash-3.4/gnucash-3.4.tar.gz
         dest: /gnucash-3.4/SOURCE/
         remote_src: yes
         extra_opts: [--strip-components=1]
         creates: /gnucash-3.4/SOURCE/CMakeLists.txt
 
-    - name: Modify CMakeLists.txt
-      lineinfile:
-        path: /gnucash-3.4/SOURCE/CMakeLists.txt
-        regexp: '^(?P<a>set\(GENERATE_SWIG_WRAPPERS \${BUILDING_FROM_VCS}.*)$'
-        line: '  \g<a>'
-        backrefs: yes
+    # - name: Modify CMakeLists.txt
+    #   lineinfile:
+    #     path: /gnucash-3.4/SOURCE/CMakeLists.txt
+    #     regexp: '^(?P<a>set\(GENERATE_SWIG_WRAPPERS \${BUILDING_FROM_VCS}.*)$'
+    #     line: '  \g<a>'
+    #     backrefs: yes
 
-    - name: Continue to modify CMakeLists.txt
-      lineinfile:
-        path: /gnucash-3.4/SOURCE/CMakeLists.txt
-        insertafter: "{{ item.insertafter }}"
-        line: "{{ item.line }}"
-      with_items:
-        - { insertafter: '^option \(ALLOW_OLD_GETTEXT', line: 'option (FORCE_SWIG "Force swig wrappers generation." OFF)' }
-        - { insertafter: '^# By default they will only be generated', line: 'if (FORCE_SWIG)' }
-        - { insertafter: '^if \(FORCE_SWIG\)', line: '  set(GENERATE_SWIG_WRAPPERS "YES")' }
-        - { insertafter: '^  set\(GENERATE_SWIG_WRAPPERS "YES"\)', line: 'else()' }
-        - { insertafter: '^  set\(GENERATE_SWIG_WRAPPERS \${BUILDING_FROM_VCS}', line: 'endif()' }
+    # - name: Continue to modify CMakeLists.txt
+    #   lineinfile:
+    #     path: /gnucash-3.4/SOURCE/CMakeLists.txt
+    #     insertafter: "{{ item.insertafter }}"
+    #     line: "{{ item.line }}"
+    #   with_items:
+    #     - { insertafter: '^option \(ALLOW_OLD_GETTEXT', line: 'option (FORCE_SWIG "Force swig wrappers generation." OFF)' }
+    #     - { insertafter: '^# By default they will only be generated', line: 'if (FORCE_SWIG)' }
+    #     - { insertafter: '^if \(FORCE_SWIG\)', line: '  set(GENERATE_SWIG_WRAPPERS "YES")' }
+    #     - { insertafter: '^  set\(GENERATE_SWIG_WRAPPERS "YES"\)', line: 'else()' }
+    #     - { insertafter: '^  set\(GENERATE_SWIG_WRAPPERS \${BUILDING_FROM_VCS}', line: 'endif()' }
 
     - name: Prepare to build gnucash
       command: |
@@ -57,6 +60,7 @@
           -DWITH_GNUCASH=ON -DWITH_PYTHON=ON -DFORCE_SWIG=ON
           -DWITH_AQBANKING=OFF -DWITH_OFX=OFF -DWITH_SQL=OFF
           /gnucash-3.4/SOURCE/
+          # -DWITH_GNUCASH=ON -DWITH_PYTHON=ON -DFORCE_SWIG=ON
       args:
         chdir: /gnucash-3.4/BUILD
 

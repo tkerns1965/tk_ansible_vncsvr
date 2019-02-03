@@ -67,7 +67,7 @@
       blockinfile:
         path: /gnucash-3.4/SOURCE/bindings/python/gnucash_core.py
         insertafter: "{{ item.insertafter }}"
-        line: "{{ item.block }}"
+        block: "{{ item.block }}"
       with_items:
         - insertafter: "^    _new_instance = 'xaccMallocAccount'$"
           block: |

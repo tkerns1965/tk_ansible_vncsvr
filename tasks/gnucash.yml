@@ -73,15 +73,15 @@
       with_items:
         - insertafter: "^    _new_instance = 'xaccMallocAccount'$"
           line: "class GncBudget(GnuCashCoreClass): pass"
-        - insertafter: "^Book.add_method('qof_book_increment_and_format_counter', 'increment_and_format_counter')$"
+        - insertafter: "^Book.add_method\('qof_book_increment_and_format_counter', 'increment_and_format_counter'\)$"
           line: "Book.add_method('gnc_book_lookup_budget_by_guid', 'lookup_budget_by_guid')"
-        - insertafter: "^Book.add_method('gnc_book_lookup_budget_by_guid', 'lookup_budget_by_guid')$"
+        - insertafter: "^Book.add_method\('gnc_book_lookup_budget_by_guid', 'lookup_budget_by_guid'\)$"
           line: "Book.add_method('gnc_book_lookup_budget_by_name', 'lookup_budget_by_name')"
-        - insertafter: "^Book.add_method('gnc_book_lookup_budget_by_name', 'lookup_budget_by_name')$"
+        - insertafter: "^Book.add_method\('gnc_book_lookup_budget_by_name', 'lookup_budget_by_name'\)$"
           line: "Book.add_method('gnc_book_get_default_budget', 'get_default_budget')"
-        - insertafter: "^Book.add_method('gnc_book_get_default_budget', 'get_default_budget')$"
+        - insertafter: "^Book.add_method\('gnc_book_get_default_budget', 'get_default_budget'\)$"
           line: "Book.add_method('gnc_book_get_default_budget_guid', 'get_default_budget_guid')"
-        - insertafter: "^Book.add_method('gnc_book_get_default_budget_guid', 'get_default_budget_guid')$"
+        - insertafter: "^Book.add_method\('gnc_book_get_default_budget_guid', 'get_default_budget_guid'\)$"
           line: "Book.add_method('gnc_book_set_default_budget_guid', 'set_default_budget_guid')"
         # - insertafter: ^    Book\.get_price_db, GncPriceDB\)$
         #   line: |

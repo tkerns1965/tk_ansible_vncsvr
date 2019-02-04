@@ -61,7 +61,7 @@
         line: "{{ item.line }}"
       with_items:
         - insertafter: "^#include \"Scrub3.h\"$"
-          line: "#include \\"gnc-budget.h\\""
+          line: "#include \"gnc-budget.h\""
         - insertafter: '^%include <Scrub3.h>$'
           line: '%include <gnc-budget.h>'
 

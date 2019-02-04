@@ -2,13 +2,13 @@
 - name: Execute block as sudo
   become: yes
   block:
-    - name: Install packages to build gnucash
-      apt:
-        name: "{{ item }}"
-        state: latest
-        update_cache: yes
-        install_recommends: no
-      with_items: "{{ gnucash_build_packages }}"
+    # - name: Install packages to build gnucash
+    #   apt:
+    #     name: "{{ item }}"
+    #     state: latest
+    #     update_cache: yes
+    #     install_recommends: no
+    #   with_items: "{{ gnucash_build_packages }}"
 
     - name: Make gnucash directories
       file:
@@ -124,30 +124,30 @@
     #     - { insertafter: '^$', line: '' }
     #     - { insertafter: '^$', line: '' }
 
-    - name: Prepare to build gnucash
-      command: |
-        cmake -DCMAKE_INSTALL_PREFIX=/usr/local
-          -DWITH_GNUCASH=ON -DWITH_PYTHON=ON -DFORCE_SWIG=ON
-          -DWITH_AQBANKING=OFF -DWITH_OFX=OFF -DWITH_SQL=OFF
-          /gnucash-3.4/SOURCE/
-      # -DWITH_GNUCASH=ON -DWITH_PYTHON=ON -DFORCE_SWIG=ON
-      args:
-        chdir: /gnucash-3.4/BUILD
+    # - name: Prepare to build gnucash
+    #   command: |
+    #     cmake -DCMAKE_INSTALL_PREFIX=/usr/local
+    #       -DWITH_GNUCASH=ON -DWITH_PYTHON=ON -DFORCE_SWIG=ON
+    #       -DWITH_AQBANKING=OFF -DWITH_OFX=OFF -DWITH_SQL=OFF
+    #       /gnucash-3.4/SOURCE/
+    # -DWITH_GNUCASH=ON -DWITH_PYTHON=ON -DFORCE_SWIG=ON
+    #   args:
+    #     chdir: /gnucash-3.4/BUILD
 
-    - name: Make gnucash
-      make:
-        chdir: /gnucash-3.4/BUILD
+    # - name: Make gnucash
+    #   make:
+    #     chdir: /gnucash-3.4/BUILD
 
-    - name: Install gnucash
-      make:
-        chdir: /gnucash-3.4/BUILD
-        target: install
+    # - name: Install gnucash
+    #   make:
+    #     chdir: /gnucash-3.4/BUILD
+    #     target: install
 
-- name: Modify .bashrc
-  lineinfile:
-    path: ~/.bashrc
-    insertafter: EOF
-    line: "{{ item }}"
-  with_items:
-    - ""
-    - "export PYTHONPATH=/usr/local/lib/python3/dist-packages"
+# - name: Modify .bashrc
+#   lineinfile:
+#     path: ~/.bashrc
+#     insertafter: EOF
+#     line: "{{ item }}"
+#   with_items:
+#     - ""
+#     - "export PYTHONPATH=/usr/local/lib/python3/dist-packages"

@@ -98,18 +98,61 @@
             line: "{{ item }}"
           with_items:
             - ''
-            - '/* BEGIN ANSIBLE MANAGED BLOCK 1 */'
-            - '#include "gnc-budget.h"'
-            - '/* END ANSIBLE MANAGED BLOCK 1 */'
-        # - name: Modify gnucash_core.py -- insert block 2
-        #   lineinfile:
-        #     path: "{{ file_path }}"
-        #     insertbefore: '~~~ MARKER 2 ~~~'
-        #     line: "{{ item }}"
-        #   with_items:
-        #     - '/* BEGIN ANSIBLE MANAGED BLOCK 2 */'
-        #     - '%include <gnc-budget.h>'
-        #     - '/* END ANSIBLE MANAGED BLOCK 2 */'
+            - '## BEGIN ANSIBLE MANAGED BLOCK 1 ##'
+            - 'class GncBudget(GnuCashCoreClass): pass'
+            - '## END ANSIBLE MANAGED BLOCK 1 ##'
+        - name: Modify gnucash_core.py -- insert block 2
+          lineinfile:
+            path: "{{ file_path }}"
+            insertbefore: '~~~ MARKER 2 ~~~'
+            line: "{{ item }}"
+          with_items:
+            - '## BEGIN ANSIBLE MANAGED BLOCK 2 ##'
+            - "Book.add_method('gnc_book_lookup_budget_by_guid', 'lookup_budget_by_guid')"
+            - "Book.add_method('gnc_book_lookup_budget_by_name', 'lookup_budget_by_name')"
+            - "Book.add_method('gnc_book_get_default_budget', 'get_default_budget')"
+            - "Book.add_method('gnc_book_get_default_budget_guid', 'get_default_budget_guid')"
+            - "Book.add_method('gnc_book_set_default_budget_guid', 'set_default_budget_guid')"
+            - '## END ANSIBLE MANAGED BLOCK 2 ##'
+        - name: Modify gnucash_core.py -- insert block 3
+          lineinfile:
+            path: "{{ file_path }}"
+            insertbefore: '~~~ MARKER 3 ~~~'
+            line: "{{ item }}"
+          with_items:
+            - '## BEGIN ANSIBLE MANAGED BLOCK 3 ##'
+            - '#Functions that return GncBudget'
+            - 'Book.lookup_budget_by_guid = method_function_returns_instance('
+            - '    Book.lookup_budget_by_guid, GncBudget)'
+            - 'Book.lookup_budget_by_name = method_function_returns_instance('
+            - '    Book.lookup_budget_by_name, GncBudget)'
+            - 'Book.get_default_budget = method_function_returns_instance('
+            - '    Book.get_default_budget, GncBudget)'
+            - '#Functions that return GUID'
+            - 'Book.get_default_budget_guid = method_function_returns_instance('
+            - 'Book.get_default_budget_guid, GUID)'
+            - '## END ANSIBLE MANAGED BLOCK 3 ##'
+        - name: Modify gnucash_core.py -- insert block 4
+          lineinfile:
+            path: "{{ file_path }}"
+            insertbefore: '~~~ MARKER 4 ~~~'
+            line: "{{ item }}"
+          with_items:
+            - '## BEGIN ANSIBLE MANAGED BLOCK 4 ##'
+            - ''
+            - '# GncBudget'
+            - "GncBudget.add_methods_with_prefix('gnc_budget_')"
+            - ''
+            - 'budget_dict =  {'
+            - "                    'get_guid' : GUID,"
+            - "                    'get_account_period_value' : GncNumeric,"
+            - "                    'get_account_period_actual_value' : GncNumeric"
+            - '               }'
+            - ''
+            - 'methods_return_instance(GncBudget, budget_dict)'
+            - ''
+            - 'GncBudget.name = property( GncBudget.get_name, GncBudget.set_name )'
+            - '## END ANSIBLE MANAGED BLOCK 4 ##'
         # - name: Modify gnucash_core.py -- remove temporary markers
         #   lineinfile:
         #     path: "{{ file_path }}"
@@ -118,6 +161,8 @@
         #   with_items:
         #     - '~~~ MARKER 1 ~~~'
         #     - '~~~ MARKER 2 ~~~'
+        #     - '~~~ MARKER 3 ~~~'
+        #     - '~~~ MARKER 4 ~~~'
 
     # - name: Modify gnucash_core.py
     #   lineinfile:

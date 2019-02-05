@@ -21,12 +21,12 @@
 
     - name: Download gnucash source
       get_url: 
-        url: https://github.com/Gnucash/gnucash/archive/3.4.tar.gz
-        dest: /gnucash-3.4/gnucash-3.4.tar.gz
+        url: https://github.com/Gnucash/gnucash/releases/download/3.4/gnucash-3.4.tar.bz2
+        dest: /gnucash-3.4/
 
     - name: Extract gnucash source
       unarchive: 
-        src: /gnucash-3.4/gnucash-3.4.tar.gz
+        src: /gnucash-3.4/gnucash-3.4.tar.bz2
         dest: /gnucash-3.4/SOURCE/
         remote_src: yes
         extra_opts: [--strip-components=1]
@@ -167,7 +167,7 @@
     - name: Prepare to build gnucash
       command: |
         cmake -DCMAKE_INSTALL_PREFIX=/usr/local
-          -DWITH_GNUCASH=ON -DWITH_PYTHON=ON -DFORCE_SWIG=ON
+          -DWITH_GNUCASH=ON -DWITH_PYTHON=ON
           -DWITH_AQBANKING=OFF -DWITH_OFX=OFF -DWITH_SQL=OFF
           /gnucash-3.4/SOURCE/
       args:

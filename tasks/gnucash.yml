@@ -55,14 +55,13 @@
     #     - { insertafter: '^  set\(GENERATE_SWIG_WRAPPERS \${BUILDING_FROM_VCS}', line: 'endif()' }
 
     - name: Modify gnucash_core.i
-      path: /gnucash-3.4/SOURCE/bindings/python/gnucash_core.i
       block:
         blockinfile:
-          # path: /gnucash-3.4/SOURCE/bindings/python/gnucash_core.i
+          path: /gnucash-3.4/SOURCE/bindings/python/gnucash_core.i
           insertafter: "^#include \"Scrub3.h\"$"
           block: "#include \"gnc-budget.h\""
         blockinfile:
-          # path: /gnucash-3.4/SOURCE/bindings/python/gnucash_core.i
+          path: /gnucash-3.4/SOURCE/bindings/python/gnucash_core.i
           insertafter: "^%include <Scrub3.h>$"
           block: "%include <gnc-budget.h>"
 

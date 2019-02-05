@@ -58,13 +58,13 @@
       blockinfile:
         path: /gnucash-3.4/SOURCE/bindings/python/gnucash_core.i
         marker: "/* {mark} ANSIBLE MANAGED BLOCK */"
-        insertafter: {{ item.insertafter }}
-        block: {{ item.block }}
+        insertafter: "{{ item.insertafter }}"
+        block: "{{ item.block }}"
       with_items:
-        - insertafter: "^\\#include \"Scrub3\\.h\"$"
-          block: "#include \"gnc-budget.h\""
-        - insertafter: "^\\%include \\<Scrub3\\.h\\>$"
-          block: "%include <gnc-budget.h>"
+        - insertafter: '#include "Scrub3.h"'
+          block: '#include "gnc-budget.h"'
+        - insertafter: '%include <Scrub3.h>'
+          block: '%include <gnc-budget.h>'
 
     # - name: Modify gnucash_core.py
     #   lineinfile:

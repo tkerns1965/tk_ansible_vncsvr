@@ -83,13 +83,13 @@
             insertafter: "{{ item.insertafter }}"
             line: "{{ item.line }}"
           with_items:
-            - insertafter: "    _new_instance = 'xaccMallocAccount'"
+            - insertafter: '    _new_instance = ''xaccMallocAccount'''
               line: '~~~ MARKER 1 ~~~'
-            - insertafter: "Book.add_method('qof_book_increment_and_format_counter', 'increment_and_format_counter')"
+            - insertafter: 'Book.add_method(''qof_book_increment_and_format_counter'', ''increment_and_format_counter'')'
               line: '~~~ MARKER 2 ~~~'
-            - insertafter: "    Book.get_price_db, GncPriceDB)"
+            - insertafter: '    Book.get_price_db, GncPriceDB)'
               line: '~~~ MARKER 3 ~~~'
-            - insertafter: "Account.name = property( Account.GetName, Account.SetName )"
+            - insertafter: 'Account.name = property( Account.GetName, Account.SetName )'
               line: '~~~ MARKER 4 ~~~'
         # - name: Modify gnucash_core.py -- insert block 1
         #   lineinfile:

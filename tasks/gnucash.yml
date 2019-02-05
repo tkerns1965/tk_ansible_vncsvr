@@ -2,13 +2,13 @@
 - name: Execute block as sudo
   become: yes
   block:
-    # - name: Install packages to build gnucash
-    #   apt:
-    #     name: "{{ item }}"
-    #     state: latest
-    #     update_cache: yes
-    #     install_recommends: no
-    #   with_items: "{{ gnucash_build_packages }}"
+    - name: Install packages to build gnucash
+      apt:
+        name: "{{ item }}"
+        state: latest
+        update_cache: yes
+        install_recommends: no
+      with_items: "{{ gnucash_build_packages }}"
 
     - name: Make gnucash directories
       file:
@@ -130,7 +130,7 @@
             - '    Book.get_default_budget, GncBudget)'
             - '#Functions that return GUID'
             - 'Book.get_default_budget_guid = method_function_returns_instance('
-            - 'Book.get_default_budget_guid, GUID)'
+            - '    Book.get_default_budget_guid, GUID)'
             - '## END ANSIBLE MANAGED BLOCK 3 ##'
         - name: Modify gnucash_core.py -- insert block 4
           lineinfile:
@@ -138,8 +138,8 @@
             insertbefore: '~~~ MARKER 4 ~~~'
             line: "{{ item }}"
           with_items:
-            - '## BEGIN ANSIBLE MANAGED BLOCK 4 ##'
             - ''
+            - '## BEGIN ANSIBLE MANAGED BLOCK 4 ##'
             - '# GncBudget'
             - "GncBudget.add_methods_with_prefix('gnc_budget_')"
             - ''
@@ -153,99 +153,41 @@
             - ''
             - 'GncBudget.name = property( GncBudget.get_name, GncBudget.set_name )'
             - '## END ANSIBLE MANAGED BLOCK 4 ##'
-        # - name: Modify gnucash_core.py -- remove temporary markers
-        #   lineinfile:
-        #     path: "{{ file_path }}"
-        #     line: "{{ item }}"
-        #     state: absent
-        #   with_items:
-        #     - '~~~ MARKER 1 ~~~'
-        #     - '~~~ MARKER 2 ~~~'
-        #     - '~~~ MARKER 3 ~~~'
-        #     - '~~~ MARKER 4 ~~~'
+        - name: Modify gnucash_core.py -- remove temporary markers
+          lineinfile:
+            path: "{{ file_path }}"
+            line: "{{ item }}"
+            state: absent
+          with_items:
+            - '~~~ MARKER 1 ~~~'
+            - '~~~ MARKER 2 ~~~'
+            - '~~~ MARKER 3 ~~~'
+            - '~~~ MARKER 4 ~~~'
 
-    # - name: Modify gnucash_core.py
-    #   lineinfile:
-    #     path: /gnucash-3.4/SOURCE/bindings/python/gnucash_core.py
-    #     insertafter: "{{ item.insertafter }}"
-    #     line: "{{ item.line }}"
-    #   with_items:
-    #     - insertafter: "^    _new_instance = 'xaccMallocAccount'$"
-    #       line: "class GncBudget(GnuCashCoreClass): pass"
-    #     - insertafter: "^Book.add_method\\('qof_book_increment_and_format_counter', 'increment_and_format_counter'\\)$"
-    #       line: "Book.add_method('gnc_book_lookup_budget_by_guid', 'lookup_budget_by_guid')"
-    #     - insertafter: "^Book.add_method\\('gnc_book_lookup_budget_by_guid', 'lookup_budget_by_guid'\\)$"
-    #       line: "Book.add_method('gnc_book_lookup_budget_by_name', 'lookup_budget_by_name')"
-    #     - insertafter: "^Book.add_method\\('gnc_book_lookup_budget_by_name', 'lookup_budget_by_name'\\)$"
-    #       line: "Book.add_method('gnc_book_get_default_budget', 'get_default_budget')"
-    #     - insertafter: "^Book.add_method\\('gnc_book_get_default_budget', 'get_default_budget'\\)$"
-    #       line: "Book.add_method('gnc_book_get_default_budget_guid', 'get_default_budget_guid')"
-    #     - insertafter: "^Book.add_method\\('gnc_book_get_default_budget_guid', 'get_default_budget_guid'\\)$"
-    #       line: "Book.add_method('gnc_book_set_default_budget_guid', 'set_default_budget_guid')"
-        # - insertafter: ^    Book\.get_price_db, GncPriceDB\)$
-        #   line: |
-        #     # ***** NEW BLOCK BEGIN *****
-        #     #Functions that return GncBudget
-        #     Book.lookup_budget_by_guid = method_function_returns_instance(
-        #         Book.lookup_budget_by_guid, GncBudget)
-        #     Book.lookup_budget_by_name = method_function_returns_instance(
-        #         Book.lookup_budget_by_name, GncBudget)
-        #     Book.get_default_budget = method_function_returns_instance(
-        #         Book.get_default_budget, GncBudget)
-        #     #Functions that return GUID
-        #     Book.get_default_budget_guid = method_function_returns_instance(
-        #         Book.get_default_budget_guid, GUID)
-        #     # *****  NEW BLOCK END  *****
-        # - insertafter: "^Account.name = property( Account.GetName, Account.SetName )$"
-        #   line: |
-        #     # ***** NEW BLOCK BEGIN *****
-        #     # GncBudget
-        #     GncBudget.add_methods_with_prefix('gnc_budget_')
-        #     
-        #     budget_dict =  {
-        #                         'get_guid' : GUID,
-        #                         'get_account_period_value' : GncNumeric,
-        #                         'get_account_period_actual_value' : GncNumeric
-        #                    }
-        #     
-        #     methods_return_instance(GncBudget, budget_dict)
-        #     
-        #     GncBudget.name = property( GncBudget.get_name, GncBudget.set_name )
-        #     # *****  NEW BLOCK END  *****
+    - name: Prepare to build gnucash
+      command: |
+        cmake -DCMAKE_INSTALL_PREFIX=/usr/local
+          -DWITH_GNUCASH=ON -DWITH_PYTHON=ON -DFORCE_SWIG=ON
+          -DWITH_AQBANKING=OFF -DWITH_OFX=OFF -DWITH_SQL=OFF
+          /gnucash-3.4/SOURCE/
+    -DWITH_GNUCASH=ON -DWITH_PYTHON=ON -DFORCE_SWIG=ON
+      args:
+        chdir: /gnucash-3.4/BUILD
 
-    # - name: Modify gnucash_core.i
-    #   lineinfile:
-    #     path: /gnucash-3.4/SOURCE/bindings/python/gnucash_core.i
-    #     insertafter: "{{ item.insertafter }}"
-    #     line: "{{ item.line }}"
-    #   with_items:
-    #     - { insertafter: '^$', line: '' }
-    #     - { insertafter: '^$', line: '' }
+    - name: Make gnucash
+      make:
+        chdir: /gnucash-3.4/BUILD
 
-    # - name: Prepare to build gnucash
-    #   command: |
-    #     cmake -DCMAKE_INSTALL_PREFIX=/usr/local
-    #       -DWITH_GNUCASH=ON -DWITH_PYTHON=ON -DFORCE_SWIG=ON
-    #       -DWITH_AQBANKING=OFF -DWITH_OFX=OFF -DWITH_SQL=OFF
-    #       /gnucash-3.4/SOURCE/
-    # -DWITH_GNUCASH=ON -DWITH_PYTHON=ON -DFORCE_SWIG=ON
-    #   args:
-    #     chdir: /gnucash-3.4/BUILD
+    - name: Install gnucash
+      make:
+        chdir: /gnucash-3.4/BUILD
+        target: install
 
-    # - name: Make gnucash
-    #   make:
-    #     chdir: /gnucash-3.4/BUILD
-
-    # - name: Install gnucash
-    #   make:
-    #     chdir: /gnucash-3.4/BUILD
-    #     target: install
-
-# - name: Modify .bashrc
-#   lineinfile:
-#     path: ~/.bashrc
-#     insertafter: EOF
-#     line: "{{ item }}"
-#   with_items:
-#     - ""
-#     - "export PYTHONPATH=/usr/local/lib/python3/dist-packages"
+- name: Modify .bashrc
+  lineinfile:
+    path: ~/.bashrc
+    insertafter: EOF
+    line: "{{ item }}"
+  with_items:
+    - ""
+    - "export PYTHONPATH=/usr/local/lib/python3/dist-packages"

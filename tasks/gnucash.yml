@@ -21,75 +21,57 @@
 
     - name: Download gnucash source
       get_url: 
-        # url: https://downloads.sourceforge.net/sourceforge/gnucash/gnucash-3.4.tar.bz2
-        # dest: /gnucash-3.4/
         url: https://github.com/Gnucash/gnucash/archive/3.4.tar.gz
         dest: /gnucash-3.4/gnucash-3.4.tar.gz
 
     - name: Extract gnucash source
       unarchive: 
-        # src: /gnucash-3.4/gnucash-3.4.tar.bz2
         src: /gnucash-3.4/gnucash-3.4.tar.gz
         dest: /gnucash-3.4/SOURCE/
         remote_src: yes
         extra_opts: [--strip-components=1]
         creates: /gnucash-3.4/SOURCE/CMakeLists.txt
 
-    # - name: Modify CMakeLists.txt
-    #   lineinfile:
-    #     path: /gnucash-3.4/SOURCE/CMakeLists.txt
-    #     regexp: '^(?P<a>set\(GENERATE_SWIG_WRAPPERS \${BUILDING_FROM_VCS}.*)$'
-    #     line: '  \g<a>'
-    #     backrefs: yes
-
-    # - name: Continue to modify CMakeLists.txt
-    #   lineinfile:
-    #     path: /gnucash-3.4/SOURCE/CMakeLists.txt
-    #     insertafter: "{{ item.insertafter }}"
-    #     line: "{{ item.line }}"
-    #   with_items:
-    #     - { insertafter: '^option \(ALLOW_OLD_GETTEXT', line: 'option (FORCE_SWIG "Force swig wrappers generation." OFF)' }
-    #     - { insertafter: '^# By default they will only be generated', line: 'if (FORCE_SWIG)' }
-    #     - { insertafter: '^if \(FORCE_SWIG\)', line: '  set(GENERATE_SWIG_WRAPPERS "YES")' }
-    #     - { insertafter: '^  set\(GENERATE_SWIG_WRAPPERS "YES"\)', line: 'else()' }
-    #     - { insertafter: '^  set\(GENERATE_SWIG_WRAPPERS \${BUILDING_FROM_VCS}', line: 'endif()' }
-
-    - name: Modify gnucash_core.i -- insert temporary markers
-      lineinfile:
-        path: /gnucash-3.4/SOURCE/bindings/python/gnucash_core.i
-        insertafter: "{{ item.insertafter }}"
-        line: "{{ item.line }}"
-      with_items:
-        - insertafter: '#include "Scrub3.h"'
-          line: '~~~ MARKER 1 ~~~'
-        - insertafter: '%include <Scrub3.h>'
-          line: '~~~ MARKER 2 ~~~'
-    - name: Modify gnucash_core.i -- insert block 1
-      lineinfile:
-        path: /gnucash-3.4/SOURCE/bindings/python/gnucash_core.i
-        insertbefore: '~~~ MARKER 1 ~~~'
-        line: "{{ item }}"
-      with_items:
-        - '/* BEGIN ANSIBLE MANAGED BLOCK 1 */'
-        - '#include "gnc-budget.h"'
-        - '/* END ANSIBLE MANAGED BLOCK 1 */'
-    - name: Modify gnucash_core.i -- insert block 2
-      lineinfile:
-        path: /gnucash-3.4/SOURCE/bindings/python/gnucash_core.i
-        insertbefore: '~~~ MARKER 2 ~~~'
-        line: "{{ item }}"
-      with_items:
-        - '/* BEGIN ANSIBLE MANAGED BLOCK 2 */'
-        - '%include <gnc-budget.h>'
-        - '/* END ANSIBLE MANAGED BLOCK 2 */'
-    - name: Modify gnucash_core.i -- remove temporary markers
-      lineinfile:
-        path: /gnucash-3.4/SOURCE/bindings/python/gnucash_core.i
-        line: "{{ item }}"
-        state: absent
-      with_items:
-        - '~~~ MARKER 1 ~~~'
-        - '~~~ MARKER 2 ~~~'
+    - name: Modify gnucash_core.i
+      vars:
+        file_path: /gnucash-3.4/SOURCE/bindings/python/gnucash_core.i
+      block:
+        - name: Modify gnucash_core.i -- insert temporary markers
+          lineinfile:
+            path: "{{ file_path }}"
+            insertafter: "{{ item.insertafter }}"
+            line: "{{ item.line }}"
+          with_items:
+            - insertafter: '#include "Scrub3.h"'
+              line: '~~~ MARKER 1 ~~~'
+            - insertafter: '%include <Scrub3.h>'
+              line: '~~~ MARKER 2 ~~~'
+        - name: Modify gnucash_core.i -- insert block 1
+          lineinfile:
+            path: "{{ file_path }}"
+            insertbefore: '~~~ MARKER 1 ~~~'
+            line: "{{ item }}"
+          with_items:
+            - '/* BEGIN ANSIBLE MANAGED BLOCK 1 */'
+            - '#include "gnc-budget.h"'
+            - '/* END ANSIBLE MANAGED BLOCK 1 */'
+        - name: Modify gnucash_core.i -- insert block 2
+          lineinfile:
+            path: "{{ file_path }}"
+            insertbefore: '~~~ MARKER 2 ~~~'
+            line: "{{ item }}"
+          with_items:
+            - '/* BEGIN ANSIBLE MANAGED BLOCK 2 */'
+            - '%include <gnc-budget.h>'
+            - '/* END ANSIBLE MANAGED BLOCK 2 */'
+        - name: Modify gnucash_core.i -- remove temporary markers
+          lineinfile:
+            path: "{{ file_path }}"
+            line: "{{ item }}"
+            state: absent
+          with_items:
+            - '~~~ MARKER 1 ~~~'
+            - '~~~ MARKER 2 ~~~'
 
     # - name: Modify gnucash_core.py
     #   lineinfile:

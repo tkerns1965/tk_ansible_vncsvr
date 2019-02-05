@@ -62,9 +62,9 @@
             line: "{{ item.line }}"
           with_items:
             - insertafter: '#include "Scrub3.h"'
-              block: '~~~ MARKER-1 ~~~'
+              line: '~~~ MARKER-1 ~~~'
             - insertafter: '%include <Scrub3.h>'
-              block: '~~~ MARKER-2 ~~~'
+              line: '~~~ MARKER-2 ~~~'
       # blockinfile:
       #   path: /gnucash-3.4/SOURCE/bindings/python/gnucash_core.i
       #   marker: "/* {mark} ANSIBLE MANAGED BLOCK */"

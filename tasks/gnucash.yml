@@ -61,10 +61,10 @@
         insertafter: "{{ item.insertafter }}"
         block: "{{ item.block }}"
       with_items:
-        - insertafter: "^\#include \"Scrub3\.h\"$"
+        - insertafter: "^\\#include \"Scrub3\.h\"$"
           block: "#include \"gnc-budget.h\""
-        - insertafter: "^\%include \<Scrub3\.h\>$"
-          block: "%include <gnc-budget.h>"
+        # - insertafter: "^\%include \<Scrub3\.h\>$"
+        #   block: "%include <gnc-budget.h>"
 
     # - name: Modify gnucash_core.py
     #   lineinfile:

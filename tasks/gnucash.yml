@@ -42,7 +42,7 @@
             insertafter: "{{ item.insertafter }}"
             line: "{{ item.line }}"
           with_items:
-            - insertafter: '#define  gnc_budget_lookup_direct(g,b) gnc_budget_lookup(&(g),(b))'
+            - insertafter: '#define  gnc_budget_lookup_direct\(g,b\) gnc_budget_lookup\(&\(g\),\(b\)\)'
               line: '~~~ MARKER 1 ~~~'
             # - insertafter: '%include <Account.h>'
             #   line: '~~~ MARKER 2 ~~~'
@@ -206,16 +206,16 @@
     #         - '~~~ MARKER 3 ~~~'
     #         - '~~~ MARKER 4 ~~~'
 
-    - name: Prepare to build gnucash
-      command: |
-        cmake -DCMAKE_INSTALL_PREFIX=/usr/local -DWITH_GNUCASH=ON -DWITH_PYTHON=ON
-          -DWITH_AQBANKING=OFF -DWITH_OFX=OFF -DWITH_SQL=OFF /gnucash-3.4/SOURCE/
-      args:
-        chdir: /gnucash-3.4/BUILD
+    # - name: Prepare to build gnucash
+    #   command: |
+    #     cmake -DCMAKE_INSTALL_PREFIX=/usr/local -DWITH_GNUCASH=ON -DWITH_PYTHON=ON
+    #       -DWITH_AQBANKING=OFF -DWITH_OFX=OFF -DWITH_SQL=OFF /gnucash-3.4/SOURCE/
+    #   args:
+    #     chdir: /gnucash-3.4/BUILD
 
-    - name: Make gnucash
-      make:
-        chdir: /gnucash-3.4/BUILD
+    # - name: Make gnucash
+    #   make:
+    #     chdir: /gnucash-3.4/BUILD
 
     # - name: Install gnucash
     #   make:

@@ -34,7 +34,7 @@
 
     - name: Modify gnc-budget.h
       vars:
-        file_path: /gnucash-3.4/SOURCE/libgnucahs/engine/gnc-budget.h
+        file_path: /gnucash-3.4/SOURCE/libgnucash/engine/gnc-budget.h
       block:
         - name: Modify gnc-budget.h -- insert temporary markers
           lineinfile:

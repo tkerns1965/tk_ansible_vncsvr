@@ -54,7 +54,7 @@
           with_items:
             - ''
             - '/* BEGIN ANSIBLE MANAGED BLOCK 1 */'
-            - '#define  gnc_book_lookup_budget_by_guid(g,b) gnc_budget_lookup(&(g),(b))'
+            - '#define  gnc_book_lookup_budget_by_guid(b,g) gnc_budget_lookup(&(g),(b))'
             - '/* END ANSIBLE MANAGED BLOCK 1 */'
         # - name: Modify gnc-budget.h -- insert block 2
         #   lineinfile:

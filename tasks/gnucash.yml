@@ -10,31 +10,30 @@
         install_recommends: no
       with_items: "{{ gnucash_build_packages }}"
 
-    - name: Make gnucash directories
+    - name: Make gnucash subfolders
       file:
-        path: "/gnucash-3.4/{{ item }}"
+        path: "{{ gnucash_fldr }}{{ item }}"
         state: directory
         mode: 0755
       with_items:
-        - SOURCE
-        - BUILD
+        - /SOURCE
+        - /BUILD
 
     - name: Download gnucash source
       get_url: 
         url: https://github.com/Gnucash/gnucash/releases/download/3.4/gnucash-3.4.tar.bz2
-        dest: /gnucash-3.4/
+        dest: "{{ gnucash_fldr }}/"
 
     - name: Extract gnucash source
       unarchive: 
-        src: /gnucash-3.4/gnucash-3.4.tar.bz2
-        dest: /gnucash-3.4/SOURCE/
+        src: "{{ gnucash_fldr }}/gnucash-3.4.tar.bz2"
+        dest: "{{ gnucash_fldr }}/SOURCE/"
         remote_src: yes
         extra_opts: [--strip-components=1]
-        creates: /gnucash-3.4/SOURCE/CMakeLists.txt
 
     - name: Modify gnc-budget.h
       vars:
-        file_path: /gnucash-3.4/SOURCE/libgnucash/engine/gnc-budget.h
+        file_path: "{{ gnucash_fldr }}/SOURCE/libgnucash/engine/gnc-budget.h"
       block:
         - name: Modify gnc-budget.h -- insert temporary markers
           lineinfile:
@@ -76,7 +75,7 @@
 
     # - name: Modify gnucash_core.i
     #   vars:
-    #     file_path: /gnucash-3.4/SOURCE/bindings/python/gnucash_core.i
+    #     file_path: "{{ gnucash_fldr }}/SOURCE/bindings/python/gnucash_core.i"
     #   block:
     #     - name: Modify gnucash_core.i -- insert temporary markers
     #       lineinfile:
@@ -117,7 +116,7 @@
 
     # - name: Modify gnucash_core.py
     #   vars:
-    #     file_path: /gnucash-3.4/SOURCE/bindings/python/gnucash_core.py
+    #     file_path: "{{ gnucash_fldr }}/SOURCE/bindings/python/gnucash_core.py"
     #   block:
     #     - name: Modify gnucash_core.py -- insert temporary markers
     #       lineinfile:
@@ -208,18 +207,18 @@
 
     # - name: Prepare to build gnucash
     #   command: |
-    #     cmake -DCMAKE_INSTALL_PREFIX=/usr/local -DWITH_GNUCASH=ON -DWITH_PYTHON=ON
-    #       -DWITH_AQBANKING=OFF -DWITH_OFX=OFF -DWITH_SQL=OFF /gnucash-3.4/SOURCE/
+    #     "cmake -DCMAKE_INSTALL_PREFIX=/usr/local -DWITH_GNUCASH=ON -DWITH_PYTHON=ON
+    #       -DWITH_AQBANKING=OFF -DWITH_OFX=OFF -DWITH_SQL=OFF {{ gnucash_fldr }}/SOURCE/"
     #   args:
-    #     chdir: /gnucash-3.4/BUILD
+    #     chdir: "{{ gnucash_fldr }}/BUILD"
 
     # - name: Make gnucash
     #   make:
-    #     chdir: /gnucash-3.4/BUILD
+    #     chdir: "{{ gnucash_fldr }}/BUILD"
 
     # - name: Install gnucash
     #   make:
-    #     chdir: /gnucash-3.4/BUILD
+    #     chdir: "{{ gnucash_fldr }}/BUILD"
     #     target: install
 
 # - name: Modify .bashrc

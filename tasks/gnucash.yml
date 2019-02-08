@@ -41,7 +41,7 @@
             insertafter: "{{ item.insertafter }}"
             line: "{{ item.line }}"
           with_items:
-            - insertafter: 'GncBudget* gnc_budget_get_default\(QofBook *book\);'
+            - insertafter: 'GncBudget\* gnc_budget_get_default\(QofBook \*book\);'
               line: '~~~ MARKER 1 ~~~'
             - insertafter: '#define  gnc_budget_lookup_direct\(g,b\) gnc_budget_lookup\(&\(g\),\(b\)\)'
               line: '~~~ MARKER 2 ~~~'

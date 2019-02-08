@@ -41,10 +41,12 @@
             insertafter: "{{ item.insertafter }}"
             line: "{{ item.line }}"
           with_items:
-            - insertafter: '#define  gnc_budget_lookup_direct\(g,b\) gnc_budget_lookup\(&\(g\),\(b\)\)'
+            - insertafter: 'GncBudget* gnc_budget_get_default\(QofBook *book\);'
               line: '~~~ MARKER 1 ~~~'
-            # - insertafter: '%include <Account.h>'
-            #   line: '~~~ MARKER 2 ~~~'
+            - insertafter: '#define  gnc_budget_lookup_direct\(g,b\) gnc_budget_lookup\(&\(g\),\(b\)\)'
+              line: '~~~ MARKER 2 ~~~'
+            - insertafter: '~~~ MARKER 2 ~~~'
+              line: '~~~ MARKER 3 ~~~'
         - name: Modify gnc-budget.h -- insert block 1
           lineinfile:
             path: "{{ file_path }}"
@@ -53,17 +55,28 @@
           with_items:
             - ''
             - '/* BEGIN ANSIBLE MANAGED BLOCK 1 */'
-            - '#define  gnc_book_lookup_budget_by_guid(b,g) gnc_budget_lookup(&(g),(b))'
+            - '#define gnc_book_get_default_budget(b) gnc_budget_get_default((b))'
             - '/* END ANSIBLE MANAGED BLOCK 1 */'
-        # - name: Modify gnc-budget.h -- insert block 2
-        #   lineinfile:
-        #     path: "{{ file_path }}"
-        #     insertbefore: '~~~ MARKER 2 ~~~'
-        #     line: "{{ item }}"
-        #   with_items:
-        #     - '/* BEGIN ANSIBLE MANAGED BLOCK 2 */'
-        #     - '%include <gnc-budget.h>'
-        #     - '/* END ANSIBLE MANAGED BLOCK 2 */'
+        - name: Modify gnc-budget.h -- insert block 2
+          lineinfile:
+            path: "{{ file_path }}"
+            insertbefore: '~~~ MARKER 2 ~~~'
+            line: "{{ item }}"
+          with_items:
+            - ''
+            - '/* BEGIN ANSIBLE MANAGED BLOCK 2 */'
+            - '#define gnc_book_lookup_budget_by_guid(b,g) gnc_budget_lookup(&(g),(b))'
+            - '/* END ANSIBLE MANAGED BLOCK 2 */'
+        - name: Modify gnc-budget.h -- insert block 3
+          lineinfile:
+            path: "{{ file_path }}"
+            insertbefore: '~~~ MARKER 3 ~~~'
+            line: "{{ item }}"
+          with_items:
+            - ''
+            - '/* BEGIN ANSIBLE MANAGED BLOCK 3 */'
+            - 'GncBudget* gnc_book_lookup_budget_by_name (const QofBook *book, const gchar *name);'
+            - '/* END ANSIBLE MANAGED BLOCK 3 */'
         - name: Modify gnc-budget.h -- remove temporary markers
           lineinfile:
             path: "{{ file_path }}"
@@ -71,7 +84,8 @@
             state: absent
           with_items:
             - '~~~ MARKER 1 ~~~'
-            # - '~~~ MARKER 2 ~~~'
+            - '~~~ MARKER 2 ~~~'
+            - '~~~ MARKER 3 ~~~'
 
     # - name: Modify gnucash_core.i
     #   vars:

@@ -52,6 +52,7 @@
             line: "{{ item }}"
           with_items:
             - ''
+            - '/* BEGIN ANSIBLE MANAGED BLOCK 1 */'
             - 'struct budget_match'
             - '{'
             - '    GncBudget   *budget;'
@@ -69,7 +70,6 @@
             - '    }'
             - '}'
             - ''
-            - '/* BEGIN ANSIBLE MANAGED BLOCK 1 */'
             - 'GncBudget*'
             - 'gnc_book_lookup_budget_by_name (const QofBook *book, const gchar *name)'
             - '{'

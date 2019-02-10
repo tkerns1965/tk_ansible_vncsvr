@@ -79,6 +79,7 @@
             - '    g_return_val_if_fail(book, NULL);'
             - '    g_return_val_if_fail(name, NULL);'
             - ''
+            - '    bgt_match.budget = NULL;'
             - '    bgt_match.name = name;'
             - ''
             - '    col = qof_book_get_collection(book, GNC_ID_BUDGET);'

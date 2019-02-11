@@ -174,7 +174,7 @@
             insertafter: "{{ item.insertafter }}"
             line: "{{ item.line }}"
           with_items:
-            - insertafter: '    ${CMAKE_SOURCE_DIR}/libgnucash/engine/Account.h'
+            - insertafter: '    \${CMAKE_SOURCE_DIR}/libgnucash/engine/Account.h'
               line: '~~~ MARKER 1 ~~~'
             # - insertafter: ''
             #   line: '~~~ MARKER 2 ~~~'

@@ -332,16 +332,16 @@
             - '~~~ MARKER 3 ~~~'
             - '~~~ MARKER 4 ~~~'
 
-    # - name: Prepare to build gnucash
-    #   command: |
-    #     cmake -DCMAKE_INSTALL_PREFIX=/usr/local -DWITH_GNUCASH=ON -DWITH_PYTHON=ON
-    #       -DWITH_AQBANKING=OFF -DWITH_OFX=OFF -DWITH_SQL=OFF {{ gnucash_fldr }}/SOURCE/
-    #   args:
-    #     chdir: "{{ gnucash_fldr }}/BUILD"
+    - name: Prepare to build gnucash
+      command: |
+        cmake -DCMAKE_INSTALL_PREFIX=/usr/local -DWITH_GNUCASH=ON -DWITH_PYTHON=ON
+          -DWITH_AQBANKING=OFF -DWITH_OFX=OFF -DWITH_SQL=OFF {{ gnucash_fldr }}/SOURCE/
+      args:
+        chdir: "{{ gnucash_fldr }}/BUILD"
 
-    # - name: Make gnucash
-    #   make:
-    #     chdir: "{{ gnucash_fldr }}/BUILD"
+    - name: Make gnucash
+      make:
+        chdir: "{{ gnucash_fldr }}/BUILD"
 
     # - name: Install gnucash
     #   make:

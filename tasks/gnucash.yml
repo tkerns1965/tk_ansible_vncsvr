@@ -343,16 +343,16 @@
       make:
         chdir: "{{ gnucash_fldr }}/BUILD"
 
-    # - name: Install gnucash
-    #   make:
-    #     chdir: "{{ gnucash_fldr }}/BUILD"
-    #     target: install
+    - name: Install gnucash
+      make:
+        chdir: "{{ gnucash_fldr }}/BUILD"
+        target: install
 
-# - name: Modify .bashrc
-#   lineinfile:
-#     path: ~/.bashrc
-#     insertafter: EOF
-#     line: "{{ item }}"
-#   with_items:
-#     - ""
-#     - "export PYTHONPATH=/usr/local/lib/python3/dist-packages"
+- name: Modify .bashrc
+  lineinfile:
+    path: ~/.bashrc
+    insertafter: EOF
+    line: "{{ item }}"
+  with_items:
+    - ""
+    - "export PYTHONPATH=/usr/local/lib/python3/dist-packages"

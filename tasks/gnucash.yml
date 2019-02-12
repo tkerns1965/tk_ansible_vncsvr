@@ -53,7 +53,6 @@
             insertbefore: '~~~ MARKER 1 ~~~'
             line: "{{ item }}"
           with_items:
-            - ''
             - '## BEGIN ANSIBLE MANAGED BLOCK 1 ##'
             - 'option (FORCE_SWIG "Force swig wrappers generation." OFF)'
             - '## END ANSIBLE MANAGED BLOCK 1 ##'
@@ -63,7 +62,6 @@
             insertbefore: '~~~ MARKER 2 ~~~'
             line: "{{ item }}"
           with_items:
-            - ''
             - '## BEGIN ANSIBLE MANAGED BLOCK 2 ##'
             - 'if (FORCE_SWIG)'
             - '  set(GENERATE_SWIG_WRAPPERS "YES")'
@@ -81,7 +79,6 @@
             insertbefore: '~~~ MARKER 3 ~~~'
             line: "{{ item }}"
           with_items:
-            - ''
             - '## BEGIN ANSIBLE MANAGED BLOCK 3 ##'
             - 'endif()'
             - '## END ANSIBLE MANAGED BLOCK 3 ##'

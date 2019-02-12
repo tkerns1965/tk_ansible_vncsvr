@@ -47,45 +47,52 @@
               line: '~~~ MARKER 2 ~~~'
             - insertafter: 'set\(GENERATE_SWIG_WRAPPERS \${BUILDING_FROM_VCS} CACHE BOOL "Controls whether to generate the swig wrappers for guile and python. If not set the wrappers will only be generated when building from a git worktree"\)'
               line: '~~~ MARKER 3 ~~~'
-        # - name: Modify ../CMakeLists.txt -- insert block 1
-        #   lineinfile:
-        #     path: "{{ file_path }}"
-        #     insertbefore: '~~~ MARKER 1 ~~~'
-        #     line: "{{ item }}"
-        #   with_items:
-        #     - ''
-        #     - '/* BEGIN ANSIBLE MANAGED BLOCK 1 */'
-        #     - '#define gnc_book_get_default_budget(b) gnc_budget_get_default((b))'
-        #     - '/* END ANSIBLE MANAGED BLOCK 1 */'
-        # - name: Modify ../CMakeLists.txt -- insert block 2
-        #   lineinfile:
-        #     path: "{{ file_path }}"
-        #     insertbefore: '~~~ MARKER 2 ~~~'
-        #     line: "{{ item }}"
-        #   with_items:
-        #     - ''
-        #     - '/* BEGIN ANSIBLE MANAGED BLOCK 2 */'
-        #     - '#define gnc_book_lookup_budget_by_guid(b,g) gnc_budget_lookup(&(g),(b))'
-        #     - '/* END ANSIBLE MANAGED BLOCK 2 */'
-        # - name: Modify ../CMakeLists.txt -- insert block 3
-        #   lineinfile:
-        #     path: "{{ file_path }}"
-        #     insertbefore: '~~~ MARKER 3 ~~~'
-        #     line: "{{ item }}"
-        #   with_items:
-        #     - ''
-        #     - '/* BEGIN ANSIBLE MANAGED BLOCK 3 */'
-        #     - 'GncBudget* gnc_book_lookup_budget_by_name (const QofBook *book, const gchar *name);'
-        #     - '/* END ANSIBLE MANAGED BLOCK 3 */'
-        # - name: Modify ../CMakeLists.txt -- remove temporary markers
-        #   lineinfile:
-        #     path: "{{ file_path }}"
-        #     line: "{{ item }}"
-        #     state: absent
-        #   with_items:
-        #     - '~~~ MARKER 1 ~~~'
-        #     - '~~~ MARKER 2 ~~~'
-        #     - '~~~ MARKER 3 ~~~'
+        - name: Modify ../CMakeLists.txt -- insert block 1
+          lineinfile:
+            path: "{{ file_path }}"
+            insertbefore: '~~~ MARKER 1 ~~~'
+            line: "{{ item }}"
+          with_items:
+            - ''
+            - '## BEGIN ANSIBLE MANAGED BLOCK 1 ##'
+            - 'option (FORCE_SWIG "Force swig wrappers generation." OFF)'
+            - '## END ANSIBLE MANAGED BLOCK 1 ##'
+        - name: Modify ../CMakeLists.txt -- insert block 2
+          lineinfile:
+            path: "{{ file_path }}"
+            insertbefore: '~~~ MARKER 2 ~~~'
+            line: "{{ item }}"
+          with_items:
+            - ''
+            - '## BEGIN ANSIBLE MANAGED BLOCK 2 ##'
+            - 'if (FORCE_SWIG)'
+            - '  set(GENERATE_SWIG_WRAPPERS "YES")'
+            - 'else()'
+            - '## END ANSIBLE MANAGED BLOCK 2 ##'
+        - name: Modify ../CMakeLists.txt -- indent next line
+          lineinfile:
+            regex: '(set\(GENERATE_SWIG_WRAPPERS \${BUILDING_FROM_VCS} CACHE BOOL "Controls whether to generate the swig wrappers for guile and python. If not set the wrappers will only be generated when building from a git worktree"\))'
+            line: '  \1'
+            backrefs: yes
+        - name: Modify ../CMakeLists.txt -- insert block 3
+          lineinfile:
+            path: "{{ file_path }}"
+            insertbefore: '~~~ MARKER 3 ~~~'
+            line: "{{ item }}"
+          with_items:
+            - ''
+            - '## BEGIN ANSIBLE MANAGED BLOCK 3 ##'
+            - 'endif()'
+            - '## END ANSIBLE MANAGED BLOCK 3 ##'
+        - name: Modify ../CMakeLists.txt -- remove temporary markers
+          lineinfile:
+            path: "{{ file_path }}"
+            line: "{{ item }}"
+            state: absent
+          with_items:
+            - '~~~ MARKER 1 ~~~'
+            - '~~~ MARKER 2 ~~~'
+            - '~~~ MARKER 3 ~~~'
 
 #     - name: Modify ../libgnucash/engine/gnc-budget.c
 #       vars:

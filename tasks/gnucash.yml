@@ -41,11 +41,11 @@
             insertafter: "{{ item.insertafter }}"
             line: "{{ item.line }}"
           with_items:
-            - insertafter: 'option (ALLOW_OLD_GETTEXT "allow to configure build with a gettext version older than 0.19.6. Some files will not be translated!" OFF)'
+            - insertafter: 'option \(ALLOW_OLD_GETTEXT "allow to configure build with a gettext version older than 0.19.6. Some files will not be translated!" OFF\)'
               line: '~~~ MARKER 1 ~~~'
             - insertafter: '# By default they will only be generated when building from a git worktree'
               line: '~~~ MARKER 2 ~~~'
-            - insertafter: 'set(GENERATE_SWIG_WRAPPERS ${BUILDING_FROM_VCS} CACHE BOOL "Controls whether to generate the swig wrappers for guile and python. If not set the wrappers will only be generated when building from a git worktree")'
+            - insertafter: 'set\(GENERATE_SWIG_WRAPPERS ${BUILDING_FROM_VCS} CACHE BOOL "Controls whether to generate the swig wrappers for guile and python. If not set the wrappers will only be generated when building from a git worktree"\)'
               line: '~~~ MARKER 3 ~~~'
         # - name: Modify ../CMakeLists.txt -- insert block 1
         #   lineinfile:

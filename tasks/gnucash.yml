@@ -45,7 +45,7 @@
               line: '~~~ MARKER 1 ~~~'
             - insertafter: '# By default they will only be generated when building from a git worktree'
               line: '~~~ MARKER 2 ~~~'
-            - insertafter: 'set\(GENERATE_SWIG_WRAPPERS ${BUILDING_FROM_VCS} CACHE BOOL "Controls whether to generate the swig wrappers for guile and python. If not set the wrappers will only be generated when building from a git worktree"\)'
+            - insertafter: 'set\(GENERATE_SWIG_WRAPPERS \${BUILDING_FROM_VCS} CACHE BOOL "Controls whether to generate the swig wrappers for guile and python. If not set the wrappers will only be generated when building from a git worktree"\)'
               line: '~~~ MARKER 3 ~~~'
         # - name: Modify ../CMakeLists.txt -- insert block 1
         #   lineinfile:

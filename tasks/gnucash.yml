@@ -72,7 +72,7 @@
         - name: Modify ../CMakeLists.txt -- indent next line
           lineinfile:
             path: "{{ file_path }}"
-            regex: '(set\(GENERATE_SWIG_WRAPPERS \${BUILDING_FROM_VCS} CACHE BOOL "Controls whether to generate the swig wrappers for guile and python. If not set the wrappers will only be generated when building from a git worktree"\))'
+            regexp: '(set\(GENERATE_SWIG_WRAPPERS \${BUILDING_FROM_VCS} CACHE BOOL "Controls whether to generate the swig wrappers for guile and python. If not set the wrappers will only be generated when building from a git worktree"\))'
             line: '  \1'
             backrefs: yes
         - name: Modify ../CMakeLists.txt -- insert block 3

@@ -31,10 +31,10 @@
         remote_src: yes
         extra_opts: [--strip-components=1]
 
-    - name: Delete ../bindings/python/gnucash_core_c.py
-      file: 
-        path: "{{ gnucash_fldr }}/SOURCE/bindings/python/gnucash_core_c.py"
-        state: absent
+    # - name: Delete ../bindings/python/gnucash_core_c.py
+    #   file: 
+    #     path: "{{ gnucash_fldr }}/SOURCE/bindings/python/gnucash_core_c.py"
+    #     state: absent
 
     - name: Modify ../libgnucash/engine/gnc-budget.c
       vars:

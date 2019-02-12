@@ -348,6 +348,12 @@
         chdir: "{{ gnucash_fldr }}/BUILD"
         target: install
 
+    - name: Create smb mount
+      template:
+        src: ./templates/gnucash/gnucash_filedir.py.template
+        dest: /usr/local/lib/python3/dist-packages/gnucash/gnucash_filedir.py
+        mode: 0644
+
 - name: Modify .bashrc
   lineinfile:
     path: ~/.bashrc

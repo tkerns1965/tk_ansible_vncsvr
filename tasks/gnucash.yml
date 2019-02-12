@@ -26,7 +26,7 @@
 
     - name: Delete ../bindings/python/gnucash_core_c.py
       file: 
-        path: "{{ gnucash_fldr }}/bindings/python/gnucash_core_c.py"
+        path: "{{ gnucash_fldr }}/SOURCE/bindings/python/gnucash_core_c.py"
         state: absent
 
     - name: Extract gnucash source

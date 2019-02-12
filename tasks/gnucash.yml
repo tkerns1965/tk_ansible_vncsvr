@@ -24,6 +24,11 @@
         url: https://github.com/Gnucash/gnucash/releases/download/3.4/gnucash-3.4.tar.bz2
         dest: "{{ gnucash_fldr }}/"
 
+    - name: Delete ../bindings/python/gnucash_core_c.py
+      file: 
+        path: "{{ gnucash_fldr }}/bindings/python/gnucash_core_c.py"
+        state: absent
+
     - name: Extract gnucash source
       unarchive: 
         src: "{{ gnucash_fldr }}/gnucash-3.4.tar.bz2"
